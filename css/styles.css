@@ -1,0 +1,503 @@
+/* ============================================================
+   RAGE STORE — Hoja de estilos
+   Semana 2 — Desarrollo Frontend I (PFY2201)
+   Autora: Ambar Aguilar
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. VARIABLES Y RESETEO
+   ------------------------------------------------------------ */
+:root {
+    /* Paleta de colores */
+    --paper: #f6f5fb;
+    --surface: #ffffff;
+    --surface-alt: #f1eefa;
+    --border-soft: #e1deef;
+
+    --rage: #e63946;
+    --volt: #2f6fed;
+    --gold: #c17f0a;
+    --ink: #221c35;
+    --mist: #5c5570;
+
+    /* Tipografía */
+    --font-display: "Chakra Petch", "Segoe UI", sans-serif;
+    --font-body: "Work Sans", "Segoe UI", sans-serif;
+
+    /* Espaciado */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.75rem;
+    --space-lg: 3rem;
+
+    --radius: 10px;
+}
+
+/* Modelo de cajas: t\ padding y border dentro de su ancho */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* ------------------------------------------------------------
+   2. TIPOGRAFÍA Y BASE DEL DOCUMENTO
+   ------------------------------------------------------------ */
+body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    letter-spacing: 0.03em;
+    color: var(--ink);
+    margin-top: 0;
+}
+
+h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    padding-bottom: var(--space-xs);
+    border-bottom: 2px solid var(--panel-accent, var(--rage));
+    display: inline-block;
+}
+
+h3 {
+    font-size: 1.1rem;
+    color: var(--panel-accent, var(--rage));
+}
+
+p {
+    color: var(--mist);
+}
+
+a {
+    color: var(--volt);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--rage);
+    text-decoration: underline;
+}
+
+main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 var(--space-md) var(--space-lg);
+}
+
+/* ------------------------------------------------------------
+   3. ENCABEZADO
+   ------------------------------------------------------------ */
+.site-header {
+    background: linear-gradient(180deg, var(--surface) 0%, var(--paper) 100%);
+    border-bottom: 3px solid var(--rage);
+    padding: var(--space-md) var(--space-md) var(--space-lg);
+    text-align: center;
+}
+
+.site-header img {
+    border-radius: 50%;
+    border: 3px solid var(--rage);
+    padding: 4px;
+    background-color: var(--surface);
+    box-shadow: 0 0 0 6px rgba(230, 57, 70, 0.08), 0 10px 24px rgba(34, 28, 53, 0.12);
+}
+
+.site-header p {
+    max-width: 640px;
+    margin: var(--space-sm) auto 0;
+    color: var(--mist);
+}
+
+/* ------------------------------------------------------------
+   4. NAVEGACIÓN
+   ------------------------------------------------------------ */
+.main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: var(--space-xs) var(--space-md);
+}
+
+.main-nav h2 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: none;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list a {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-list a:hover {
+    border-color: var(--volt);
+    color: var(--volt);
+    box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.1);
+}
+
+.nav-list a.active {
+    border-color: var(--rage);
+    color: var(--rage);
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+/* ------------------------------------------------------------
+   5. DIVISORES
+   ------------------------------------------------------------ */
+hr {
+    border: none;
+    height: 2px;
+    margin: var(--space-lg) auto;
+    max-width: 1080px;
+    background: linear-gradient(90deg, transparent, var(--border-soft), transparent);
+}
+
+/* ------------------------------------------------------------
+   6. PANELES / SECCIONES
+   ------------------------------------------------------------ */
+.panel {
+    --panel-accent: var(--rage);
+    background-color: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-top: 4px solid var(--panel-accent);
+    padding: var(--space-md);
+    margin-top: var(--space-lg);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 18px rgba(34, 28, 53, 0.06);
+    clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+}
+
+.panel-featured {
+    --panel-accent: var(--rage);
+}
+
+.panel-categories {
+    --panel-accent: var(--volt);
+}
+
+.panel-promo {
+    --panel-accent: var(--gold);
+}
+
+.panel-games {
+    --panel-accent: var(--rage);
+}
+
+.panel-accessories {
+    --panel-accent: var(--volt);
+}
+
+.panel-steps {
+    --panel-accent: var(--gold);
+}
+
+.panel-channels {
+    --panel-accent: var(--rage);
+}
+
+.panel-branches {
+    --panel-accent: var(--volt);
+}
+
+.panel-faq {
+    --panel-accent: var(--gold);
+}
+
+.panel-promo img {
+    display: block;
+    margin: var(--space-sm) auto;
+    border: 2px solid var(--gold);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 20px rgba(193, 127, 10, 0.18);
+}
+
+/* ------------------------------------------------------------
+   7. PRODUCTOS Y TARJETAS
+   ------------------------------------------------------------ */
+.product-grid {
+    list-style: none;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-md);
+}
+
+.product-card {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: var(--space-sm);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--panel-accent, var(--rage));
+    box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--panel-accent, var(--rage)) 45%, transparent);
+}
+
+.product-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: var(--surface);
+    border: 1px solid var(--border-soft);
+    margin-bottom: var(--space-xs);
+}
+
+.product-card p {
+    font-size: 0.9rem;
+}
+
+.product-card:nth-child(3n + 1) {
+    --panel-accent: var(--rage);
+}
+
+.product-card:nth-child(3n + 2) {
+    --panel-accent: var(--volt);
+}
+
+.product-card:nth-child(3n + 3) {
+    --panel-accent: var(--gold);
+}
+
+/* ------------------------------------------------------------
+   8. LISTAS NUMERADAS
+   ------------------------------------------------------------ */
+.category-list,
+.step-list,
+.branch-list {
+    list-style: none;
+    counter-reset: item;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.category-list li,
+.step-list li,
+.branch-list li {
+    counter-increment: item;
+    position: relative;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: var(--space-xs) var(--space-sm) var(--space-xs) 3rem;
+}
+
+.category-list li::before,
+.step-list li::before,
+.branch-list li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0.65rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--panel-accent, var(--rage));
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+/* ------------------------------------------------------------
+   9. LISTAS CON ICONOS 
+   ------------------------------------------------------------ */
+.contact-list,
+.accessory-list {
+    list-style: none;
+    margin: var(--space-md) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.contact-list li,
+.accessory-list li {
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--ink);
+}
+
+.contact-list a[href^="tel:"]::before {
+    content: "☎ ";
+    color: var(--rage);
+}
+
+.contact-list a[href^="mailto:"]::before {
+    content: "✉ ";
+    color: var(--volt);
+}
+
+.contact-list a[target="_blank"]::after {
+    content: " ↗";
+    color: var(--gold);
+}
+
+/* ------------------------------------------------------------
+   10. PREGUNTAS FRECUENTES
+   ------------------------------------------------------------ */
+.faq-item {
+    border-left: 3px solid var(--panel-accent, var(--gold));
+    padding: var(--space-xs) var(--space-sm);
+    margin-top: var(--space-sm);
+    background-color: var(--surface-alt);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.faq-item:first-of-type {
+    margin-top: var(--space-md);
+}
+
+.faq-item h3 {
+    margin-bottom: 0.3rem;
+}
+
+.faq-item p {
+    margin: 0;
+}
+
+/* ------------------------------------------------------------
+   11. PIE DE PÁGINA
+   ------------------------------------------------------------ */
+.site-footer {
+    background-color: var(--surface-alt);
+    border-top: 3px solid var(--volt);
+    padding: var(--space-lg) var(--space-md);
+    text-align: center;
+}
+
+.site-footer address {
+    font-style: normal;
+    color: var(--mist);
+    line-height: 1.8;
+}
+
+.social-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin: var(--space-sm) 0;
+    padding: 0;
+}
+
+.social-links a {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--volt);
+    border-radius: 999px;
+    color: var(--volt);
+    font-size: 0.85rem;
+    text-decoration: none;
+    background-color: var(--surface);
+}
+
+.social-links a:hover {
+    background-color: var(--volt);
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(47, 111, 237, 0.25);
+}
+
+.site-footer p {
+    font-size: 0.85rem;
+    color: var(--mist);
+}
+
+/* ------------------------------------------------------------
+   12. ESTADOS DE FOCO Y ACCESIBILIDAD
+   ------------------------------------------------------------ */
+a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ------------------------------------------------------------
+   13. RESPONSIVE
+   ------------------------------------------------------------ */
+@media (max-width: 640px) {
+    main {
+        padding: 0 var(--space-sm) var(--space-md);
+    }
+
+    .panel {
+        padding: var(--space-sm);
+        clip-path: none;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--space-sm);
+    }
+
+    .nav-list {
+        gap: 0.4rem;
+    }
+}
