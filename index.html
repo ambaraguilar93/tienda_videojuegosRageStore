@@ -19,7 +19,7 @@
     <header class="site-header">
         <img src="img/logo.png" alt="Logotipo de la tienda Rage Store" width="193" height="90">
         <h1>Rage Store</h1>
-        <p>
+        <p id="header-desc">
             Somos una tienda especializada en videojuegos para distintas plataformas.
             Encuentra los últimos lanzamientos, clásicos y accesorios
             con despacho a todo Chile.
@@ -30,11 +30,16 @@
     <nav class="main-nav" aria-label="Menú principal">
         <h2>Navegación</h2>
         <ul class="nav-list">
-            <li><a href="index.html" class="active">Inicio</a></li>
-            <li><a href="productos.html">Productos</a></li>
-            <li><a href="#categorias">Categorías</a></li>
-            <li><a href="#promociones">Promociones</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="index.html" class="active"
+                    data-tip="Estás en el inicio: revisa destacados, categorías y promociones.">Inicio</a></li>
+            <li><a href="productos.html"
+                    data-tip="Explora todo nuestro catálogo de videojuegos y accesorios.">Productos</a></li>
+            <li><a href="#categorias"
+                    data-tip="Descubre las categorías más buscadas por nuestros clientes.">Categorías</a></li>
+            <li><a href="#promociones"
+                    data-tip="Revisa las promociones y ofertas de temporada disponibles.">Promociones</a></li>
+            <li><a href="contacto.html" data-tip="Contáctanos por teléfono, correo o visítanos en tienda.">Contacto</a>
+            </li>
         </ul>
     </nav>
 
@@ -139,6 +144,7 @@
         <p>Copyright &copy; 2026 Rage Store. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>

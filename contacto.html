@@ -7,7 +7,9 @@
     <meta name="description" content="Canales de atención, sucursales y horarios de la tienda Rage Store.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Work+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <title>Rage Store - Contacto</title>
 </head>
@@ -17,15 +19,17 @@
     <header class="site-header">
         <img src="img/logo.png" alt="Logotipo de la tienda Rage Store" width="193" height="90">
         <h1>Contáctanos</h1>
-        <p>Resolvemos tus dudas sobre pedidos, garantías y disponibilidad de stock.</p>
+        <p id="header-desc">Resolvemos tus dudas sobre pedidos, garantías y disponibilidad de stock.</p>
     </header>
     <!-- Menu de navegacion -->
     <nav class="main-nav" aria-label="Menú principal">
         <h2>Navegación</h2>
         <ul class="nav-list">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="productos.html">Productos</a></li>
-            <li><a href="contacto.html" class="active">Contacto</a></li>
+            <li><a href="index.html" data-tip="Vuelve al inicio para ver destacados y promociones.">Inicio</a></li>
+            <li><a href="productos.html"
+                    data-tip="Explora todo nuestro catálogo de videojuegos y accesorios.">Productos</a></li>
+            <li><a href="contacto.html" class="active"
+                    data-tip="Escríbenos, revisa sucursales o nuestras preguntas frecuentes.">Contacto</a></li>
         </ul>
     </nav>
 
@@ -69,13 +73,44 @@
 
             <div class="faq-item">
                 <h3>¿Puedo cambiar un juego abierto?</h3>
-                <p>Solo si presenta fallas de fábrica. En ese caso, el cambio se realiza dentro de los primeros 10 días.</p>
+                <p>Solo si presenta fallas de fábrica. En ese caso, el cambio se realiza dentro de los primeros 10 días.
+                </p>
             </div>
 
             <div class="faq-item">
                 <h3>¿Venden juegos digitales?</h3>
-                <p>Sí. El código de descarga llega al correo registrado de forma inmediata una vez realizado el pago.</p>
+                <p>Sí. El código de descarga llega al correo registrado de forma inmediata una vez realizado el pago.
+                </p>
             </div>
+        </section>
+
+        <hr>
+        <!-- Seccion 4 - formulario de contacto (evento submit + validacion con JS) -->
+        <section id="escribenos" class="panel">
+            <h2>Escríbenos</h2>
+            <p>¿Tienes una consulta puntual? Completa el formulario y te responderemos a la brevedad.</p>
+
+            <form id="form-contacto" class="contact-form" novalidate>
+                <div class="form-field">
+                    <label for="campo-nombre">Nombre</label>
+                    <input type="text" id="campo-nombre" name="nombre" placeholder="Tu nombre">
+                </div>
+
+                <div class="form-field">
+                    <label for="campo-correo">Correo electrónico</label>
+                    <input type="email" id="campo-correo" name="correo" placeholder="tucorreo@ejemplo.com">
+                </div>
+
+                <div class="form-field">
+                    <label for="campo-mensaje">Mensaje</label>
+                    <textarea id="campo-mensaje" name="mensaje" rows="4"
+                        placeholder="Escribe tu consulta aquí"></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar mensaje</button>
+
+                <p id="form-mensaje" class="form-mensaje" aria-live="polite"></p>
+            </form>
         </section>
 
     </main>
@@ -102,6 +137,7 @@
         <p>Copyright &copy; 2026 Rage Store. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>
