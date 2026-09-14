@@ -1,10 +1,12 @@
-/* ============================================================
+/* ------------------------------------------------------------
    RAGE STORE — Hoja de estilos
    Semana 2 — Desarrollo Frontend I (PFY2201)
-   Semana 3: diseño responsivo con Flexbox, CSS Grid ampliado
+   Semana 3 — diseño responsivo con Flexbox, CSS Grid ampliado
    y breakpoint de tablet y celulares.
+   Semana 5 — estilos para formulario de contacto, botón
+   de favoritos y contador, y ajuste del encabezado.
    Autora: Ambar Aguilar
-   ============================================================ */
+   ------------------------------------------------------------ */
 
 /* ------------------------------------------------------------
    1. VARIABLES Y RESETEO
@@ -31,7 +33,6 @@
     --space-sm: 1rem;
     --space-md: 1.75rem;
     --space-lg: 3rem;
-
     --radius: 10px;
 }
 
@@ -123,10 +124,14 @@ main {
     box-shadow: 0 0 0 6px rgba(230, 57, 70, 0.08), 0 10px 24px rgba(34, 28, 53, 0.12);
 }
 
-.site-header p {
+#header-desc {
     max-width: 640px;
     margin: var(--space-sm) auto 0;
     color: var(--mist);
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ------------------------------------------------------------
@@ -280,7 +285,6 @@ hr {
     grid-column: 2;
     grid-row: 2;
 }
-
 
 /* ------------------------------------------------------------
    7. PRODUCTOS Y TARJETAS
@@ -598,6 +602,10 @@ a:focus-visible {
         clip-path: none;
     }
 
+    #header-desc {
+        min-height: 6.5rem;
+    }
+
     .product-grid {
         grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         gap: var(--space-sm);
@@ -643,4 +651,131 @@ a:focus-visible {
     .social-links {
         justify-content: center;
     }
+}
+
+/* ------------------------------------------------------------
+   14. FORMULARIO DE CONTACTO
+   ------------------------------------------------------------ */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    max-width: 480px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-field label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.form-field input,
+.form-field textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink);
+    background-color: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.85rem;
+    width: 100%;
+    resize: vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--volt);
+    box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.12);
+}
+
+.btn-enviar {
+    align-self: flex-start;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.6rem;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--rage);
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-enviar:hover {
+    background-color: var(--volt);
+    box-shadow: 0 6px 14px rgba(47, 111, 237, 0.25);
+}
+
+.form-mensaje {
+    margin: 0;
+    font-size: 0.9rem;
+    min-height: 1.2em;
+}
+
+.form-mensaje-exito {
+    color: #1f7a3d;
+}
+
+.form-mensaje-error {
+    color: var(--rage);
+}
+
+/* ------------------------------------------------------------
+   15. FAVORITOS
+   ------------------------------------------------------------ */
+.product-card>.btn-favorito {
+    display: inline-block;
+    margin: var(--space-xs) 0 0 var(--space-xs);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--gold);
+    border-radius: 999px;
+    background-color: var(--surface);
+    color: var(--gold);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card>.btn-favorito:hover {
+    background-color: var(--gold);
+    color: #ffffff;
+    box-shadow: 0 6px 14px rgba(193, 127, 10, 0.25);
+}
+
+.product-card.es-favorito {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(193, 127, 10, 0.15);
+}
+
+.product-card.es-favorito>.btn-favorito {
+    background-color: var(--gold);
+    color: #ffffff;
+}
+
+.contador-favoritos {
+    display: inline-block;
+    margin: var(--space-sm) auto 0;
+    padding: 0.35rem 1.1rem;
+    border-radius: 999px;
+    background-color: var(--surface-alt);
+    border: 1px solid var(--border-soft);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
 }

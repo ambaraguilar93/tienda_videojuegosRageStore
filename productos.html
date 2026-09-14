@@ -7,7 +7,9 @@
     <meta name="description" content="Catálogo de videojuegos y accesorios disponibles en Rage Store.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Work+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <title>Rage Store - Productos </title>
 </head>
@@ -17,15 +19,17 @@
     <header class="site-header">
         <img src="img/logo.png" alt="Logotipo de la tienda Rage Store" width="193" height="90">
         <h1>Catálogo de productos</h1>
-        <p>Revisa todos los videojuegos y accesorios disponibles en nuestra tienda.</p>
+        <p id="header-desc">Revisa todos los videojuegos y accesorios disponibles en nuestra tienda.</p>
     </header>
     <!-- Menu de navegacion -->
     <nav class="main-nav" aria-label="Menú principal">
         <h2>Navegación</h2>
         <ul class="nav-list">
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="productos.html" class="active">Productos</a></li>
-            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="index.html" data-tip="Vuelve al inicio para ver destacados y promociones.">Inicio</a></li>
+            <li><a href="productos.html" class="active"
+                    data-tip="Estás viendo el catálogo completo de videojuegos y accesorios.">Productos</a></li>
+            <li><a href="contacto.html" data-tip="Contáctanos por teléfono, correo o visítanos en tienda.">Contacto</a>
+            </li>
         </ul>
     </nav>
 
@@ -111,6 +115,17 @@
             </ol>
         </section>
 
+        <hr>
+        <!-- Seccion 4 - catalogo dinamico con Fetch API desde data/juegos.json -->
+        <section id="catalogo-dinamico" class="panel">
+            <h2>Próximos lanzamientos</h2>
+            <p>Estos títulos se cargan dinámicamente desde nuestro catálogo de novedades:</p>
+
+            <ul class="product-grid" id="lista-dinamica">
+                <li class="mensaje-carga">Cargando catálogo...</li>
+            </ul>
+        </section>
+
     </main>
 
     <hr>
@@ -136,6 +151,7 @@
         <p>Copyright &copy; 2026 Rage Store. Todos los derechos reservados.</p>
     </footer>
 
+    <script src="js/scripts.js"></script>
 </body>
 
 </html>

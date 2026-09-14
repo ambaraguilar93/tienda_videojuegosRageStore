@@ -1,0 +1,92 @@
+[
+    {
+        "id": "juego-1",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=101",
+            "alt": "Portada del videojuego Hollow Knight: Silksong"
+        },
+        "titulo": "Hollow Knight: Silksong",
+        "descripcion": "Secuela del aclamado metroidvania, con nuevos mundos, enemigos y habilidades para Hornet.",
+        "precio": "$29.990",
+        "plataforma": "PC, PlayStation 5, Xbox Series X y Nintendo Switch",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    },
+    {
+        "id": "juego-2",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=102",
+            "alt": "Portada del videojuego God of War Ragnarök"
+        },
+        "titulo": "God of War Ragnarök",
+        "descripcion": "Kratos y Atreo enfrentan el fin de los nueve reinos en esta épica aventura nórdica.",
+        "precio": "$49.990",
+        "plataforma": "PlayStation 5",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    },
+    {
+        "id": "juego-3",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=103",
+            "alt": "Portada del videojuego Baldur's Gate 3"
+        },
+        "titulo": "Baldur's Gate 3",
+        "descripcion": "RPG por turnos basado en Dungeons & Dragons, con decisiones que cambian la historia.",
+        "precio": "$44.990",
+        "plataforma": "PC, PlayStation 5 y Xbox Series X",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    },
+    {
+        "id": "juego-4",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=104",
+            "alt": "Portada del videojuego Cyberpunk 2077: Phantom Liberty"
+        },
+        "titulo": "Cyberpunk 2077: Phantom Liberty",
+        "descripcion": "Expansión de espionaje en Night City, con una nueva zona y misiones de alto riesgo.",
+        "precio": "$34.990",
+        "plataforma": "PC, PlayStation 5 y Xbox Series X",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    },
+    {
+        "id": "juego-5",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=105",
+            "alt": "Portada del videojuego Hades II"
+        },
+        "titulo": "Hades II",
+        "descripcion": "Roguelike de acción donde Melinoë enfrenta a los titanes para salvar el inframundo.",
+        "precio": "$24.990",
+        "plataforma": "PC y Nintendo Switch",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    },
+    {
+        "id": "juego-6",
+        "imagen": {
+            "src": "https://picsum.photos/200/200?random=106",
+            "alt": "Portada del videojuego Stardew Valley"
+        },
+        "titulo": "Stardew Valley",
+        "descripcion": "Simulador de granja y vida rural con cultivo, minería, pesca y relaciones con el pueblo.",
+        "precio": "$12.990",
+        "plataforma": "PC, PlayStation, Xbox y Nintendo Switch",
+        "boton": {
+            "texto": "Ver detalle",
+            "url": "#"
+        }
+    }
+]
