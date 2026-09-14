@@ -92,3 +92,52 @@ rage-store/
 1. Abrir la carpeta del proyecto en Visual Studio Code.
 2. Instalar la extensión **Live Server**.
 3. Clic derecho sobre `index.html` → *Open with Live Server*.
+
+---
+
+# Semana 5 — Manipulando el DOM con JavaScript para mejorar la interactividad
+
+## Descripción
+
+Se incorporó JavaScript (`js/scripts.js`) para agregar interactividad dinámica
+al sitio, tal como manipulación del DOM, gestión de eventos de usuario y consumo de
+datos externos mediante la Fetch API. El foco de esta semana es transformar
+el sitio estático de semanas anteriores en una experiencia interactiva.
+
+## Estructura del proyecto (actualizada)
+
+```
+tienda_videojuegosRageStore/
+├── index.html
+├── productos.html
+├── contacto.html
+├── css/
+│   └── styles.css      Estilos + Semana 5: formulario, favoritos, encabezado
+├── data/
+│   └── juegos.json      Catálogo de próximos lanzamientos (fuente del Fetch)
+├── img/
+└── js/
+    └── scripts.js       Lógica de interactividad de la Semana 5
+```
+
+## Elementos de JavaScript aplicados
+
+| Requerimiento | Función en `scripts.js` | Dónde se aplica |
+| --- | --- | --- |
+| Selección de elementos del DOM | `initFavoritos()`, `initNavHoverInfo()`, `initCatalogoDinamico()` | `.product-card`, `#header-desc`, `.nav-list a[data-tip]`, `#lista-dinamica` |
+| Crear y agregar contenido (`createElement` + `appendChild`) | `crearContadorFavoritos()`, `initFavoritos()` | Contador de favoritos y botón "☆ Favorito" en cada tarjeta |
+| Agregar/reemplazar contenido (`innerHTML`) | `mostrarCatalogoDinamico()` | Sección "Próximos lanzamientos" en `productos.html` |
+| Evento `click` | `initFavoritos()` | Botón de favoritos en las tarjetas de producto |
+| Evento `mouseover` / `mouseout` | `initNavHoverInfo()` | Enlaces del menú de navegación, en las 3 páginas |
+| Evento `submit` + validación | `initFormularioContacto()` | Formulario de contacto en `contacto.html` |
+| Fetch API + promesas (`.then`/`.catch`) | `initCatalogoDinamico()` | Carga de `data/juegos.json` |
+| Manejo de errores de la carga de datos | bloque `.catch()` de `initCatalogoDinamico()` | Mensaje de error mostrado en pantalla si falla el Fetch |
+
+## Cómo visualizar el sitio
+
+1. Abrir la carpeta del proyecto en Visual Studio Code.
+2. Instalar la extensión **Live Server**.
+3. Clic derecho sobre `index.html` (o `productos.html`) → *Open with Live Server*.
+
+También puede revisarse ya publicado en GitHub Pages:
+<https://ambaraguilar93.github.io/tienda_videojuegosRageStore/>
