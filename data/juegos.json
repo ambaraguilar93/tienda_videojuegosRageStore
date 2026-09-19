@@ -9,10 +9,7 @@
         "descripcion": "Secuela del aclamado metroidvania, con nuevos mundos, enemigos y habilidades para Hornet.",
         "precio": "$29.990",
         "plataforma": "PC, PlayStation 5, Xbox Series X y Nintendo Switch",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     },
     {
         "id": "juego-2",
@@ -24,10 +21,7 @@
         "descripcion": "Kratos y Atreo enfrentan el fin de los nueve reinos en esta épica aventura nórdica.",
         "precio": "$49.990",
         "plataforma": "PlayStation 5",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     },
     {
         "id": "juego-3",
@@ -39,10 +33,7 @@
         "descripcion": "RPG por turnos basado en Dungeons & Dragons, con decisiones que cambian la historia.",
         "precio": "$44.990",
         "plataforma": "PC, PlayStation 5 y Xbox Series X",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     },
     {
         "id": "juego-4",
@@ -54,10 +45,7 @@
         "descripcion": "Expansión de espionaje en Night City, con una nueva zona y misiones de alto riesgo.",
         "precio": "$34.990",
         "plataforma": "PC, PlayStation 5 y Xbox Series X",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     },
     {
         "id": "juego-5",
@@ -69,10 +57,7 @@
         "descripcion": "Roguelike de acción donde Melinoë enfrenta a los titanes para salvar el inframundo.",
         "precio": "$24.990",
         "plataforma": "PC y Nintendo Switch",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     },
     {
         "id": "juego-6",
@@ -84,9 +69,6 @@
         "descripcion": "Simulador de granja y vida rural con cultivo, minería, pesca y relaciones con el pueblo.",
         "precio": "$12.990",
         "plataforma": "PC, PlayStation, Xbox y Nintendo Switch",
-        "boton": {
-            "texto": "Ver detalle",
-            "url": "#"
-        }
+        "reserva": true
     }
 ]

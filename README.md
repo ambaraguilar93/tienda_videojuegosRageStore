@@ -32,13 +32,6 @@ rage-store/
 | Enlaces | Navegación interna, anclas `#categorias` y `#promociones`, `mailto:`, `tel:` y sitios externos |
 | Imágenes | Logotipo, portadas de los juegos y banner de promociones, todas con atributo `alt` |
 
-
-## Cómo visualizar el sitio
- 
-1. Abrir la carpeta del proyecto en Visual Studio Code.
-2. Instalar la extensión **Live Server**.
-3. Clic derecho sobre `index.html` → *Open with Live Server*.
-
 ## Validación
  
 Código revisado con el validador del W3C: <https://validator.w3.org/>
@@ -87,12 +80,6 @@ rage-store/
 | Selectores avanzados | `:nth-child()` para alternar el color de las tarjetas de producto; `::before`/`::after` con `counter()` para numerar listas; selectores de atributo (`a[href^="tel:"]`, `a[href^="mailto:"]`, `a[target="_blank"]`) para diferenciar tipos de enlace |
 | Responsivo | `@media (max-width: 640px)` ajusta la grilla de productos y el espaciado en móviles |
 
-## Cómo visualizar el sitio
-
-1. Abrir la carpeta del proyecto en Visual Studio Code.
-2. Instalar la extensión **Live Server**.
-3. Clic derecho sobre `index.html` → *Open with Live Server*.
-
 ---
 
 # Semana 5 — Manipulando el DOM con JavaScript para mejorar la interactividad
@@ -132,6 +119,52 @@ tienda_videojuegosRageStore/
 | Evento `submit` + validación | `initFormularioContacto()` | Formulario de contacto en `contacto.html` |
 | Fetch API + promesas (`.then`/`.catch`) | `initCatalogoDinamico()` | Carga de `data/juegos.json` |
 | Manejo de errores de la carga de datos | bloque `.catch()` de `initCatalogoDinamico()` | Mensaje de error mostrado en pantalla si falla el Fetch |
+
+---
+
+# Semana 6 — Optimizando la lógica y el rendimiento de una página web con JavaScript
+
+## Descripción
+
+Se integró **Bootstrap 5** para la maquetación (navbar responsivo y tarjetas de
+producto), manteniendo la identidad visual del sitio. Además, se amplió la
+interactividad con un **carrito de compras** persistente, un **buscador** de
+productos, y se extendió el uso de la **Fetch API** a todas las secciones de
+productos. Por último, se reorganizaron las carpetas del proyecto según la 
+estructura solicitada.
+
+## Estructura del proyecto (actualizada)
+
+tienda_videojuegosRageStore/
+├── index.html
+├── productos.html
+├── contacto.html
+├── assets/
+│ ├── css/
+│ │ └── styles.css Estilos + Semana 6: Bootstrap, carrito, buscador, reservas
+│ ├── js/
+│ │ └── scripts.js Lógica de interactividad + Semana 6: carrito, buscador, Fetch ampliado
+│ └── img/
+└── data/
+├── catalogo.json Destacados y catálogo principal (fuente del Fetch)
+└── juegos.json Próximos lanzamientos / reservas (fuente del Fetch)
+
+
+## Elementos aplicados
+
+| Requerimiento | Función / Selector | Dónde se aplica |
+| --- | --- | --- |
+| Integración de Bootstrap 5 | Variables `--bs-primary`, `--bs-body-font-family`, etc. sobreescritas en `:root` | `assets/css/styles.css`, aplicado en toda la interfaz |
+| Navbar responsivo | `navbar-expand-lg` + `navbar-toggler` + `collapse` | Menú de navegación en las 3 páginas |
+| Grilla de tarjetas responsiva | `row-cols-1 row-cols-md-2 row-cols-lg-3` + `card` | Destacados, catálogo principal y próximos lanzamientos |
+| Fetch API + promesas, ampliado a toda la tienda | `initDestacados()`, `initCatalogoPrincipal()`, `initCatalogoDinamico()` | `data/catalogo.json` y `data/juegos.json` |
+| Función reutilizable para renderizar productos | `crearTarjetaProducto()`, `pintarProductos()` (`createElement` + `DocumentFragment`) | Genera las tarjetas de las 3 secciones sin repetir código |
+| Manejo de errores de la carga de datos | `mostrarErrorCatalogo()` | Mensaje amigable si falla cualquiera de los dos `fetch` |
+| Evento `click` — carrito de compras | `agregarAlCarrito()`, `quitarDelCarrito()`, `initCarrito()` | Botón "Agregar al carrito" / "Reservar" en cada tarjeta |
+| Manipulación dinámica del DOM — resumen del carrito | `actualizarResumenCarrito()` | Modal del carrito (contador, lista de productos y total) |
+| Persistencia de datos | `localStorage` (carrito y favoritos) | El carrito y los favoritos se mantienen al recargar o cambiar de página |
+| Evento `submit` — buscador | `initBusqueda()` | Formulario de búsqueda en `productos.html` |
+| Diferenciación de reservas | Etiqueta `.badge-reserva`, texto "Reservar" / "✓ Reservado" | Tarjetas de "Próximos lanzamientos" |
 
 ## Cómo visualizar el sitio
 

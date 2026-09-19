@@ -5,6 +5,8 @@
    y breakpoint de tablet y celulares.
    Semana 5 — estilos para formulario de contacto, botón
    de favoritos y contador, y ajuste del encabezado.
+   Semana 6 — integracion de Bootstrap 5, carrito de compra, buscador
+   y etiquetas.
    Autora: Ambar Aguilar
    ------------------------------------------------------------ */
 
@@ -34,6 +36,24 @@
     --space-md: 1.75rem;
     --space-lg: 3rem;
     --radius: 10px;
+}
+
+/* ------------------------------------------------------------
+   1B. INTEGRACIÓN BOOTSTRAP 5
+   Se sobreescriben las variables de Bootstrap con la paleta y
+   tipografía propias en vez de usar los valores por defecto de Bootstrap.
+   ------------------------------------------------------------ */
+:root {
+    --bs-body-font-family: var(--font-body);
+    --bs-body-color: var(--ink);
+    --bs-body-bg: var(--paper);
+    --bs-primary: var(--rage);
+    --bs-primary-rgb: 230, 57, 70;
+    --bs-link-color: var(--volt);
+    --bs-link-color-rgb: 47, 111, 237;
+    --bs-link-hover-color: var(--volt);
+    --bs-border-radius: var(--radius);
+    --bs-border-color: var(--border-soft);
 }
 
 /* Modelo de cajas */
@@ -159,12 +179,19 @@ main {
 
 .nav-list {
     list-style: none;
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--space-sm);
     margin: 0;
-    padding: 0;
+    padding: var(--space-xs) 0 0;
+}
+
+.navbar-toggler {
+    border-color: var(--border-soft);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
 }
 
 .nav-list a {
@@ -302,9 +329,14 @@ hr {
     background-color: var(--surface-alt);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius);
-    padding: var(--space-sm);
     text-align: center;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* La card de Bootstrap ya trae padding propio en .card-body.
+   Acá solo se aplica para la imagen (que sigue fuera del card-body). */
+.product-card {
+    padding-top: var(--space-sm);
 }
 
 .product-card:hover {
@@ -322,6 +354,7 @@ hr {
     background-color: var(--surface);
     border: 1px solid var(--border-soft);
     margin-bottom: var(--space-xs);
+    align-self: center;
 }
 
 .product-card p {
@@ -735,9 +768,9 @@ a:focus-visible {
 /* ------------------------------------------------------------
    15. FAVORITOS
    ------------------------------------------------------------ */
-.product-card>.btn-favorito {
+.card-actions .btn-favorito {
     display: inline-block;
-    margin: var(--space-xs) 0 0 var(--space-xs);
+    margin: 0;
     font-family: var(--font-display);
     font-size: 0.7rem;
     letter-spacing: 0.05em;
@@ -751,7 +784,7 @@ a:focus-visible {
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.product-card>.btn-favorito:hover {
+.card-actions .btn-favorito:hover {
     background-color: var(--gold);
     color: #ffffff;
     box-shadow: 0 6px 14px rgba(193, 127, 10, 0.25);
@@ -762,7 +795,7 @@ a:focus-visible {
     box-shadow: 0 0 0 3px rgba(193, 127, 10, 0.15);
 }
 
-.product-card.es-favorito>.btn-favorito {
+.product-card.es-favorito .btn-favorito {
     background-color: var(--gold);
     color: #ffffff;
 }
@@ -778,4 +811,134 @@ a:focus-visible {
     font-size: 0.8rem;
     letter-spacing: 0.05em;
     color: var(--gold);
+}
+
+/* ------------------------------------------------------------
+   16. RESERVAS (próximos lanzamientos)
+   ------------------------------------------------------------ */
+.badge-reserva {
+    display: inline-block;
+    align-self: center;
+    margin-bottom: 0.35rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background-color: var(--volt);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   17. CARRITO DE COMPRAS
+   ------------------------------------------------------------ */
+
+/* Agrupa los botones "Agregar/Reservar" + "Favorito" y los pega al
+   fondo de la tarjeta (card-body ahora es un flex-column (d-flex flex-column)). */
+.card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: var(--space-xs);
+}
+
+.btn-carrito-flotante {
+    position: fixed;
+    right: var(--space-md);
+    bottom: var(--space-md);
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.7rem 1.1rem;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--rage);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    box-shadow: 0 10px 22px -6px rgba(230, 57, 70, 0.45);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-carrito-flotante:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 26px -6px rgba(230, 57, 70, 0.55);
+}
+
+.btn-carrito-flotante span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.4rem;
+    height: 1.4rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background-color: #ffffff;
+    color: var(--rage);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.lista-carrito {
+    list-style: none;
+    margin: 0 0 var(--space-sm);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.item-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    background-color: var(--surface-alt);
+    font-size: 0.9rem;
+}
+
+.btn-quitar-carrito {
+    border: none;
+    background: none;
+    color: var(--rage);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+}
+
+.btn-quitar-carrito:hover {
+    color: #ffffff;
+    background-color: var(--rage);
+    border-radius: 999px;
+}
+
+/* ------------------------------------------------------------
+   18. BUSCADOR DE PRODUCTOS
+   ------------------------------------------------------------ */
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 480px;
+    margin: var(--space-sm) auto 0;
+}
+
+.search-form .form-control {
+    flex: 1 1 240px;
+}
+
+.busqueda-mensaje {
+    margin: var(--space-xs) auto 0;
+    max-width: 480px;
+    color: var(--mist);
+    font-size: 0.9rem;
 }

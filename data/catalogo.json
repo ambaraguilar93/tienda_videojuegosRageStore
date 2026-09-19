@@ -1,0 +1,86 @@
+[
+    {
+        "id": "catalogo-1",
+        "titulo": "Minecraft",
+        "descripcion": "Sandbox de construcción y supervivencia con modo multijugador.",
+        "precio": "$22.990",
+        "plataforma": "PC, PlayStation, Xbox y Nintendo Switch",
+        "imagen": {
+            "src": "assets/img/minecraft.png",
+            "alt": "Portada del videojuego Minecraft"
+        },
+        "destacado": false
+    },
+    {
+        "id": "catalogo-2",
+        "titulo": "Elden Ring",
+        "descripcion": "Rol de acción en un mundo abierto de alta dificultad.",
+        "precio": "$44.990",
+        "plataforma": "PC, PlayStation 5 y Xbox Series X",
+        "imagen": {
+            "src": "assets/img/elden_ring.png",
+            "alt": "Portada del videojuego Elden Ring"
+        },
+        "destacado": false
+    },
+    {
+        "id": "catalogo-3",
+        "titulo": "EA Sports FC 26",
+        "descripcion": "Simulador de fútbol con ligas y clubes oficiales.",
+        "precio": "$54.990",
+        "plataforma": "PC, PlayStation 5 y Nintendo Switch",
+        "imagen": {
+            "src": "assets/img/fifa.png",
+            "alt": "Portada del videojuego EA Sports FC 26"
+        },
+        "destacado": true
+    },
+    {
+        "id": "catalogo-4",
+        "titulo": "The Legend of Zelda: Tears of the Kingdom",
+        "descripcion": "Aventura de mundo abierto exclusiva de Nintendo.",
+        "precio": "$59.990",
+        "plataforma": "Nintendo Switch",
+        "imagen": {
+            "src": "assets/img/zelda.png",
+            "alt": "Portada del videojuego The Legend of Zelda: Tears of the Kingdom"
+        },
+        "destacado": false
+    },
+    {
+        "id": "catalogo-5",
+        "titulo": "Grand Theft Auto V",
+        "descripcion": "Acción en mundo abierto con modo en línea. Clasificación +18.",
+        "precio": "$19.990",
+        "plataforma": "PC, PlayStation 5 y Xbox Series X",
+        "imagen": {
+            "src": "assets/img/gtav.png",
+            "alt": "Portada del videojuego Grand Theft Auto V"
+        },
+        "destacado": false
+    },
+    {
+        "id": "catalogo-6",
+        "titulo": "Crash Bandicoot",
+        "descripcion": "Clásico juego de plataformas con niveles lineales y jefes finales.",
+        "precio": "$29.990",
+        "plataforma": "PC y consolas",
+        "imagen": {
+            "src": "assets/img/crash.png",
+            "alt": "Portada del videojuego Crash Bandicoot"
+        },
+        "destacado": true
+    },
+    {
+        "id": "catalogo-7",
+        "titulo": "Street Fighter",
+        "descripcion": "Serie de lucha uno contra uno con golpes, patadas y poderes especiales.",
+        "precio": "$34.990",
+        "plataforma": "PC y consolas",
+        "imagen": {
+            "src": "assets/img/street.png",
+            "alt": "Portada del videojuego Street Fighter"
+        },
+        "destacado": true
+    }
+]
