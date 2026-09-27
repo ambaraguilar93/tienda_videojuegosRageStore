@@ -1,12 +1,14 @@
 /* ------------------------------------------------------------
    RAGE STORE — Hoja de estilos
-   Semana 2 — Desarrollo Frontend I (PFY2201)
+   Semana 2 — primera implementacion CSS.
    Semana 3 — diseño responsivo con Flexbox, CSS Grid ampliado
    y breakpoint de tablet y celulares.
    Semana 5 — estilos para formulario de contacto, botón
-   de favoritos y contador, y ajuste del encabezado.
+   de favoritos, contador y ajustes.
    Semana 6 — integracion de Bootstrap 5, carrito de compra, buscador
    y etiquetas.
+   Semana 7 — migración a React, precios de oferta, panel del
+   carrito y ajustes del buscador.
    Autora: Ambar Aguilar
    ------------------------------------------------------------ */
 
@@ -39,9 +41,9 @@
 }
 
 /* ------------------------------------------------------------
-   1B. INTEGRACIÓN BOOTSTRAP 5
+   1. INTEGRACIÓN BOOTSTRAP 5
    Se sobreescriben las variables de Bootstrap con la paleta y
-   tipografía propias en vez de usar los valores por defecto de Bootstrap.
+   tipografía.
    ------------------------------------------------------------ */
 :root {
     --bs-body-font-family: var(--font-body);
@@ -333,8 +335,7 @@ hr {
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* La card de Bootstrap ya trae padding propio en .card-body.
-   Acá solo se aplica para la imagen (que sigue fuera del card-body). */
+/* La card de Bootstrap ya trae padding propio en .card-body */
 .product-card {
     padding-top: var(--space-sm);
 }
@@ -687,134 +688,7 @@ a:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   14. FORMULARIO DE CONTACTO
-   ------------------------------------------------------------ */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-    margin-top: var(--space-md);
-    max-width: 480px;
-}
-
-.form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.form-field label {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: var(--ink);
-}
-
-.form-field input,
-.form-field textarea {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--ink);
-    background-color: var(--surface);
-    border: 1px solid var(--border-soft);
-    border-radius: var(--radius);
-    padding: 0.6rem 0.85rem;
-    width: 100%;
-    resize: vertical;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-    outline: none;
-    border-color: var(--volt);
-    box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.12);
-}
-
-.btn-enviar {
-    align-self: flex-start;
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.65rem 1.6rem;
-    border: none;
-    border-radius: 999px;
-    background-color: var(--rage);
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-enviar:hover {
-    background-color: var(--volt);
-    box-shadow: 0 6px 14px rgba(47, 111, 237, 0.25);
-}
-
-.form-mensaje {
-    margin: 0;
-    font-size: 0.9rem;
-    min-height: 1.2em;
-}
-
-.form-mensaje-exito {
-    color: #1f7a3d;
-}
-
-.form-mensaje-error {
-    color: var(--rage);
-}
-
-/* ------------------------------------------------------------
-   15. FAVORITOS
-   ------------------------------------------------------------ */
-.card-actions .btn-favorito {
-    display: inline-block;
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 0.7rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.9rem;
-    border: 1px solid var(--gold);
-    border-radius: 999px;
-    background-color: var(--surface);
-    color: var(--gold);
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card-actions .btn-favorito:hover {
-    background-color: var(--gold);
-    color: #ffffff;
-    box-shadow: 0 6px 14px rgba(193, 127, 10, 0.25);
-}
-
-.product-card.es-favorito {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(193, 127, 10, 0.15);
-}
-
-.product-card.es-favorito .btn-favorito {
-    background-color: var(--gold);
-    color: #ffffff;
-}
-
-.contador-favoritos {
-    display: inline-block;
-    margin: var(--space-sm) auto 0;
-    padding: 0.35rem 1.1rem;
-    border-radius: 999px;
-    background-color: var(--surface-alt);
-    border: 1px solid var(--border-soft);
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    color: var(--gold);
-}
-
-/* ------------------------------------------------------------
-   16. RESERVAS (próximos lanzamientos)
+   14. RESERVAS (próximos lanzamientos)
    ------------------------------------------------------------ */
 .badge-reserva {
     display: inline-block;
@@ -831,11 +705,10 @@ a:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   17. CARRITO DE COMPRAS
+   15. CARRITO DE COMPRAS
    ------------------------------------------------------------ */
 
-/* Agrupa los botones "Agregar/Reservar" + "Favorito" y los pega al
-   fondo de la tarjeta (card-body ahora es un flex-column (d-flex flex-column)). */
+/* Contenedor del botón "Agregar/Reservar" dentro de la tarjeta. */
 .card-actions {
     display: flex;
     flex-direction: column;
@@ -921,7 +794,7 @@ a:focus-visible {
 }
 
 /* ------------------------------------------------------------
-   18. BUSCADOR DE PRODUCTOS
+   16. BUSCADOR DE PRODUCTOS
    ------------------------------------------------------------ */
 .search-form {
     display: flex;
@@ -941,4 +814,198 @@ a:focus-visible {
     max-width: 480px;
     color: var(--mist);
     font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------
+   17. PRECIOS Y OFERTAS (Semana 7)
+   ------------------------------------------------------------ */
+.product-card {
+    position: relative;
+}
+
+.product-card.en-carrito {
+    border-color: #1f7a3d;
+    box-shadow: 0 0 0 3px rgba(31, 122, 61, 0.15);
+}
+
+.badge-oferta {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background-color: var(--rage);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.product-card .plataforma {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.precios {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.precio-normal {
+    color: var(--mist);
+    font-size: 0.9rem;
+    text-decoration: line-through;
+}
+
+.precio-oferta {
+    color: var(--rage);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.mensaje-vacio {
+    margin: var(--space-md) 0 0;
+    padding: var(--space-sm);
+    border: 1px dashed var(--border-soft);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.panel-promo .btn {
+    font-family: var(--font-display);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------
+   18. PANEL DEL CARRITO (Semana 7)
+   Se usan las clases offcanvas de Bootstrap solo por el estilo.
+   ------------------------------------------------------------ */
+.carrito-panel {
+    --bs-offcanvas-width: 420px;
+    background-color: var(--surface);
+    border-left: 4px solid var(--rage);
+}
+
+.carrito-panel .offcanvas-title {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.item-carrito {
+    align-items: flex-start;
+}
+
+.item-carrito img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-soft);
+    flex-shrink: 0;
+}
+
+.item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.item-nombre {
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+}
+
+.item-precio {
+    color: var(--mist);
+    font-size: 0.8rem;
+}
+
+.item-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.btn-cantidad {
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 50%;
+    background-color: var(--surface);
+    color: var(--ink);
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-cantidad:hover {
+    border-color: var(--volt);
+    color: var(--volt);
+}
+
+.item-cantidad {
+    min-width: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.carrito-vacio {
+    padding: var(--space-md) var(--space-sm);
+    text-align: center;
+    border: 1px dashed var(--border-soft);
+    border-radius: var(--radius);
+}
+
+.carrito-total {
+    border-top: 2px solid var(--border-soft);
+    padding-top: var(--space-sm);
+}
+
+.carrito-total p {
+    margin: 0 0 0.3rem;
+    color: var(--ink);
+}
+
+.carrito-ahorro {
+    color: #1f7a3d !important;
+    font-size: 0.9rem;
+}
+
+.carrito-total-precio {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+}
+
+.buscador {
+    margin-top: var(--space-lg);
+    text-align: center;
+}
+
+.busqueda-mensaje {
+    min-height: 1.4em;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* Celular: el texto de la promoción pasa debajo de la imagen */
+@media (max-width: 640px) {
+    .promo-text {
+        grid-column: 1;
+        grid-row: auto;
+    }
 }

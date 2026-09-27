@@ -1,0 +1,31 @@
+import ProductCard from './ProductCard.jsx'
+import { cantidadEnCarrito } from '../utils/carrito.js'
+
+// Sección con un listado de productos. Se reutiliza para
+// el catálogo y para los próximos lanzamientos.
+function ProductList({ id, titulo, descripcion, productos, carrito, onAgregar, claseAcento }) {
+  return (
+    <section id={id} className={`panel ${claseAcento}`}>
+      <h2>{titulo}</h2>
+      <p>{descripcion}</p>
+
+      {/* Se muestra un mensaje si el buscador no dejó productos */}
+      {productos.length === 0 ? (
+        <p className="mensaje-vacio">No hay productos que coincidan con tu búsqueda en esta sección.</p>
+      ) : (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+          {productos.map(producto => (
+            <ProductCard
+              key={producto.id}
+              producto={producto}
+              cantidad={cantidadEnCarrito(carrito, producto.id)}
+              onAgregar={onAgregar}
+            />
+          ))}
+        </div>
+      )}
+    </section>
+  )
+}
+
+export default ProductList
