@@ -11,21 +11,21 @@ const enlaces = [
 
 // Encabezado con logo y menú de navegación.
 // Usamos useState para abrir el menu en modo celular con onClick.
-function Header() {
+function Encabezado() {
   const [menuAbierto, setMenuAbierto] = useState(false)
 
   return (
     <>
-      <header className="site-header" id="inicio">
+      <header className="encabezado-sitio" id="inicio">
         <img src={logo} alt="Logotipo de la tienda Rage Store" width="193" height="90" />
         <h1>Rage Store</h1>
-        <p id="header-desc">
+        <p id="descripcion-encabezado">
           Somos una tienda especializada en videojuegos para distintas plataformas.
           Encuentra los últimos lanzamientos, clásicos y ofertas con despacho a todo Chile.
         </p>
       </header>
 
-      <nav className="navbar navbar-expand-lg main-nav" aria-label="Menú principal">
+      <nav className="navbar navbar-expand-lg nav-principal" aria-label="Menú principal">
         <div className="container-fluid justify-content-center">
           <button
             className="navbar-toggler"
@@ -43,7 +43,7 @@ function Header() {
             className={`collapse navbar-collapse justify-content-center ${menuAbierto ? 'show' : ''}`}
             id="navMenu"
           >
-            <ul className="navbar-nav nav-list">
+            <ul className="navbar-nav lista-nav">
               {enlaces.map(enlace => (
                 <li className="nav-item" key={enlace.href}>
                   <a
@@ -63,4 +63,4 @@ function Header() {
   )
 }
 
-export default Header
+export default Encabezado

@@ -1,8 +1,10 @@
 import { formatearPrecio } from '../utils/precios.js'
+import ConfirmarAccion from './ConfirmarAccion.jsx'
 
 // Fila del carrito con botones para sumar, restar y eliminar.
-function CartItem({ item, onSumar, onRestar, onEliminar }) {
-  const { id, nombre, imagen, precioOferta, cantidad, reserva } = item
+// Eliminar pide confirmación para evitar borrar un producto por accidente.
+function ItemCarrito({ item, onSumar, onRestar, onEliminar }) {
+  const { nombre, imagen, precioOferta, cantidad, reserva } = item
 
   return (
     <li className="item-carrito">
@@ -21,7 +23,9 @@ function CartItem({ item, onSumar, onRestar, onEliminar }) {
           <button
             type="button"
             className="btn-cantidad"
-            onClick={() => onRestar(id)}
+            onClick={() => onRestar(item)}
+            // Con 1 unidad se desactiva: para sacar el producto se usa ✕ (con confirmación)
+            disabled={cantidad === 1}
             aria-label={`Quitar una unidad de ${nombre}`}
           >
             −
@@ -38,16 +42,17 @@ function CartItem({ item, onSumar, onRestar, onEliminar }) {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="btn-quitar-carrito"
-        onClick={() => onEliminar(id)}
-        aria-label={`Eliminar ${nombre} del carrito`}
+      <ConfirmarAccion
+        pregunta={`¿Quitar ${nombre}?`}
+        textoConfirmar="Sí, quitar"
+        onConfirmar={() => onEliminar(item)}
+        claseBoton="btn-quitar-carrito"
+        etiqueta={`Eliminar ${nombre} del carrito`}
       >
         ✕
-      </button>
+      </ConfirmarAccion>
     </li>
   )
 }
 
-export default CartItem
+export default ItemCarrito

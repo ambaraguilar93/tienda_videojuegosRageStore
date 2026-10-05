@@ -1,21 +1,17 @@
 import { formatearPrecio, calcularDescuento } from '../utils/precios.js'
+import { textoBotonAgregar } from '../utils/carrito.js'
 
-// Tarjeta de un producto con imagen, nombre, descripción, precio normal
-// y precio oferta. Recibe todo por props, sirve para cualquier producto.
-function ProductCard({ producto, cantidad, onAgregar }) {
+// Tarjeta de un producto. Recibe todo por props, sirve para cualquier producto.
+// "Ver detalle" avisa a App qué producto mostrar en el modal.
+function TarjetaProducto({ producto, cantidad, onAgregar, onVerDetalle }) {
   const { nombre, descripcion, precio, precioOferta, plataforma, imagen, alt, reserva } = producto
   const descuento = calcularDescuento(precio, precioOferta)
   const enCarrito = cantidad > 0
 
-  // Texto del botón según si es reserva y si ya está en el carrito
-  let textoBoton = reserva ? 'Reservar' : 'Agregar al carrito'
-  if (enCarrito) {
-    textoBoton = reserva ? `✓ Reservado (${cantidad})` : `✓ En el carrito (${cantidad})`
-  }
 
   return (
     <article className="col">
-      <div className={`card product-card h-100 ${enCarrito ? 'en-carrito' : ''}`}>
+      <div className={`card tarjeta-producto h-100 ${enCarrito ? 'en-carrito' : ''}`}>
         {/* La etiqueta solo aparece si hay descuento */}
         {descuento > 0 && <span className="badge-oferta">-{descuento}%</span>}
 
@@ -39,13 +35,21 @@ function ProductCard({ producto, cantidad, onAgregar }) {
             </span>
           </div>
 
-          <div className="card-actions">
+          <div className="acciones-tarjeta">
             <button
               type="button"
               className={`btn btn-sm ${enCarrito ? 'btn-success' : 'btn-primary'}`}
               onClick={() => onAgregar(producto)}
             >
-              {textoBoton}
+              {textoBotonAgregar(producto, cantidad)}
+            </button>
+            <button
+              type="button"
+              className="btn btn-link btn-sm btn-ver-detalle"
+              onClick={() => onVerDetalle(producto)}
+              aria-label={`Ver detalle de ${nombre}`}
+            >
+              Ver detalle
             </button>
           </div>
         </div>
@@ -54,4 +58,4 @@ function ProductCard({ producto, cantidad, onAgregar }) {
   )
 }
 
-export default ProductCard
+export default TarjetaProducto

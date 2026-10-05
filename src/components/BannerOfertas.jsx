@@ -1,9 +1,9 @@
 import promo from '../assets/img/promo.png'
 
 // Sección de bienvenida con la promoción de temporada.
-function Hero() {
+function BannerOfertas() {
   return (
-    <section className="panel panel-promo" aria-labelledby="titulo-promo">
+    <section className="panel panel-ofertas" aria-labelledby="titulo-promo">
       <h2 id="titulo-promo">Ofertas de temporada</h2>
       <img
         src={promo}
@@ -11,7 +11,7 @@ function Hero() {
         width="200"
         height="200"
       />
-      <div className="promo-text">
+      <div className="texto-ofertas">
         <p>
           Todos nuestros videojuegos tienen <strong>precio oferta</strong> este mes, y los
           próximos lanzamientos se pueden reservar con precio de preventa.
@@ -28,4 +28,4 @@ function Hero() {
   )
 }
 
-export default Hero
+export default BannerOfertas

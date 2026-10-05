@@ -9,6 +9,8 @@
    y etiquetas.
    Semana 7 — migración a React, precios de oferta, panel del
    carrito y ajustes del buscador.
+   Semana 8 — estados de carga y error, avisos del carrito,
+   confirmaciones, foco visible y nombres de clases en español.
    Autora: Ambar Aguilar
    ------------------------------------------------------------ */
 
@@ -41,7 +43,7 @@
 }
 
 /* ------------------------------------------------------------
-   1. INTEGRACIÓN BOOTSTRAP 5
+   2. INTEGRACIÓN BOOTSTRAP 5
    Se sobreescriben las variables de Bootstrap con la paleta y
    tipografía.
    ------------------------------------------------------------ */
@@ -70,7 +72,7 @@ body {
 }
 
 /* ------------------------------------------------------------
-   2. TIPOGRAFÍA Y BASE DEL DOCUMENTO
+   3. TIPOGRAFÍA Y BASE DEL DOCUMENTO
    ------------------------------------------------------------ */
 body {
     background-color: var(--paper);
@@ -129,16 +131,16 @@ main {
 }
 
 /* ------------------------------------------------------------
-   3. ENCABEZADO
+   4. ENCABEZADO
    ------------------------------------------------------------ */
-.site-header {
+.encabezado-sitio {
     background: linear-gradient(180deg, var(--surface) 0%, var(--paper) 100%);
     border-bottom: 3px solid var(--rage);
     padding: var(--space-md) var(--space-md) var(--space-lg);
     text-align: center;
 }
 
-.site-header img {
+.encabezado-sitio img {
     border-radius: 50%;
     border: 3px solid var(--rage);
     padding: 4px;
@@ -146,7 +148,7 @@ main {
     box-shadow: 0 0 0 6px rgba(230, 57, 70, 0.08), 0 10px 24px rgba(34, 28, 53, 0.12);
 }
 
-#header-desc {
+#descripcion-encabezado {
     max-width: 640px;
     margin: var(--space-sm) auto 0;
     color: var(--mist);
@@ -157,9 +159,9 @@ main {
 }
 
 /* ------------------------------------------------------------
-   4. NAVEGACIÓN
+   5. NAVEGACIÓN
    ------------------------------------------------------------ */
-.main-nav {
+.nav-principal {
     position: sticky;
     top: 0;
     z-index: 10;
@@ -169,17 +171,7 @@ main {
     padding: var(--space-xs) var(--space-md);
 }
 
-.main-nav h2 {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: none;
-}
-
-.nav-list {
+.lista-nav {
     list-style: none;
     flex-wrap: wrap;
     justify-content: center;
@@ -196,7 +188,7 @@ main {
     box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.15);
 }
 
-.nav-list a {
+.lista-nav a {
     display: inline-block;
     padding: 0.4rem 0.9rem;
     color: var(--ink);
@@ -210,20 +202,14 @@ main {
     transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.nav-list a:hover {
+.lista-nav a:hover {
     border-color: var(--volt);
     color: var(--volt);
     box-shadow: 0 0 0 4px rgba(47, 111, 237, 0.1);
 }
 
-.nav-list a.active {
-    border-color: var(--rage);
-    color: var(--rage);
-    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
-}
-
 /* ------------------------------------------------------------
-   5. DIVISORES
+   6. DIVISORES
    ------------------------------------------------------------ */
 hr {
     border: none;
@@ -234,7 +220,7 @@ hr {
 }
 
 /* ------------------------------------------------------------
-   6. PANELES / SECCIONES
+   7. PANELES / SECCIONES
    ------------------------------------------------------------ */
 .panel {
     --panel-accent: var(--rage);
@@ -248,43 +234,23 @@ hr {
     clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
 }
 
-.panel-featured {
-    --panel-accent: var(--rage);
-}
-
-.panel-categories {
-    --panel-accent: var(--volt);
-}
-
-.panel-promo {
+.panel-ofertas {
     --panel-accent: var(--gold);
 }
 
-.panel-games {
+.panel-catalogo {
     --panel-accent: var(--rage);
 }
 
-.panel-accessories {
+.panel-lanzamientos {
     --panel-accent: var(--volt);
 }
 
-.panel-steps {
-    --panel-accent: var(--gold);
-}
-
-.panel-channels {
+.panel-contacto {
     --panel-accent: var(--rage);
 }
 
-.panel-branches {
-    --panel-accent: var(--volt);
-}
-
-.panel-faq {
-    --panel-accent: var(--gold);
-}
-
-.panel-promo {
+.panel-ofertas {
     display: grid;
     grid-template-columns: 200px 1fr;
     column-gap: var(--space-md);
@@ -292,12 +258,12 @@ hr {
     align-items: start;
 }
 
-.panel-promo h2 {
+.panel-ofertas h2 {
     grid-column: 1 / -1;
     grid-row: 1;
 }
 
-.panel-promo img {
+.panel-ofertas img {
     grid-column: 1;
     grid-row: 2;
     display: block;
@@ -310,24 +276,16 @@ hr {
     box-shadow: 0 8px 20px rgba(193, 127, 10, 0.18);
 }
 
-.promo-text {
+.texto-ofertas {
     grid-column: 2;
     grid-row: 2;
 }
 
 /* ------------------------------------------------------------
-   7. PRODUCTOS Y TARJETAS
+   8. PRODUCTOS Y TARJETAS
    ------------------------------------------------------------ */
-.product-grid {
-    list-style: none;
-    margin: var(--space-md) 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: var(--space-md);
-}
 
-.product-card {
+.tarjeta-producto {
     background-color: var(--surface-alt);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius);
@@ -336,18 +294,18 @@ hr {
 }
 
 /* La card de Bootstrap ya trae padding propio en .card-body */
-.product-card {
+.tarjeta-producto {
     padding-top: var(--space-sm);
 }
 
-.product-card:hover {
+.tarjeta-producto:hover {
     transform: translateY(-4px);
     border-color: var(--panel-accent, var(--rage));
     box-shadow: 0 10px 22px -8px rgba(230, 57, 70, 0.35);
     box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--panel-accent, var(--rage)) 45%, transparent);
 }
 
-.product-card img {
+.tarjeta-producto img {
     width: 100px;
     height: 100px;
     object-fit: cover;
@@ -358,28 +316,26 @@ hr {
     align-self: center;
 }
 
-.product-card p {
+.tarjeta-producto p {
     font-size: 0.9rem;
 }
 
-.product-card:nth-child(3n + 1) {
+.tarjeta-producto:nth-child(3n + 1) {
     --panel-accent: var(--rage);
 }
 
-.product-card:nth-child(3n + 2) {
+.tarjeta-producto:nth-child(3n + 2) {
     --panel-accent: var(--volt);
 }
 
-.product-card:nth-child(3n + 3) {
+.tarjeta-producto:nth-child(3n + 3) {
     --panel-accent: var(--gold);
 }
 
 /* ------------------------------------------------------------
-   8. LISTAS NUMERADAS
+   9. LISTAS NUMERADAS
    ------------------------------------------------------------ */
-.category-list,
-.step-list,
-.branch-list {
+.lista-sucursales {
     list-style: none;
     counter-reset: item;
     margin: var(--space-md) 0 0;
@@ -389,9 +345,7 @@ hr {
     gap: var(--space-xs);
 }
 
-.category-list li,
-.step-list li,
-.branch-list li {
+.lista-sucursales li {
     counter-increment: item;
     position: relative;
     background-color: var(--surface-alt);
@@ -400,9 +354,7 @@ hr {
     padding: var(--space-xs) var(--space-sm) var(--space-xs) 3rem;
 }
 
-.category-list li::before,
-.step-list li::before,
-.branch-list li::before {
+.lista-sucursales li::before {
     content: counter(item);
     position: absolute;
     left: 0.65rem;
@@ -422,10 +374,9 @@ hr {
 }
 
 /* ------------------------------------------------------------
-   9. LISTAS CON ICONOS 
+   10. LISTAS CON ICONOS 
    ------------------------------------------------------------ */
-.contact-list,
-.accessory-list {
+.lista-contacto {
     list-style: none;
     margin: var(--space-md) 0 0;
     padding: 0;
@@ -434,8 +385,7 @@ hr {
     gap: var(--space-xs);
 }
 
-.contact-list li,
-.accessory-list li {
+.lista-contacto li {
     background-color: var(--surface-alt);
     border: 1px solid var(--border-soft);
     border-radius: var(--radius);
@@ -443,63 +393,25 @@ hr {
     color: var(--ink);
 }
 
-.contact-list a[href^="tel:"]::before {
+.lista-contacto a[href^="tel:"]::before {
     content: "☎ ";
     color: var(--rage);
 }
 
-.contact-list a[href^="mailto:"]::before {
+.lista-contacto a[href^="mailto:"]::before {
     content: "✉ ";
     color: var(--volt);
 }
 
-.contact-list a[target="_blank"]::after {
+.lista-contacto a[target="_blank"]::after {
     content: " ↗";
     color: var(--gold);
 }
 
 /* ------------------------------------------------------------
-   10. PREGUNTAS FRECUENTES
-   ------------------------------------------------------------ */
-.faq-item {
-    border-left: 3px solid var(--panel-accent, var(--gold));
-    padding: var(--space-xs) var(--space-sm);
-    margin-top: var(--space-sm);
-    background-color: var(--surface-alt);
-    border-radius: 0 var(--radius) var(--radius) 0;
-}
-
-.faq-item:first-of-type {
-    margin-top: var(--space-md);
-}
-
-.panel-faq {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: var(--space-sm) var(--space-md);
-    align-items: start;
-}
-
-.panel-faq h2 {
-    grid-column: 1 / -1;
-}
-
-.panel-faq .faq-item {
-    margin-top: 0;
-}
-
-.faq-item h3 {
-    margin-bottom: 0.3rem;
-}
-
-.faq-item p {
-    margin: 0;
-}
-
-/* ------------------------------------------------------------
    11. PIE DE PÁGINA
    ------------------------------------------------------------ */
-.site-footer {
+.pie-sitio {
     background-color: var(--surface-alt);
     border-top: 3px solid var(--volt);
     padding: var(--space-lg) var(--space-md);
@@ -509,31 +421,31 @@ hr {
     text-align: center;
 }
 
-.site-footer h2 {
+.pie-sitio h2 {
     grid-column: 1 / -1;
     text-align: center;
 }
 
-.site-footer address {
+.pie-sitio address {
     grid-column: 1;
 }
 
-.site-footer h3,
-.site-footer .social-links {
+.pie-sitio h3,
+.pie-sitio .redes-sociales {
     grid-column: 2;
 }
 
-.site-footer p {
+.pie-sitio p {
     grid-column: 3;
 }
 
-.site-footer address {
+.pie-sitio address {
     font-style: normal;
     color: var(--mist);
     line-height: 1.8;
 }
 
-.social-links {
+.redes-sociales {
     list-style: none;
     display: flex;
     justify-content: center;
@@ -543,7 +455,7 @@ hr {
 
 }
 
-.social-links a {
+.redes-sociales a {
     display: inline-block;
     padding: 0.4rem 1rem;
     border: 1px solid var(--volt);
@@ -554,13 +466,13 @@ hr {
     background-color: var(--surface);
 }
 
-.social-links a:hover {
+.redes-sociales a:hover {
     background-color: var(--volt);
     color: #ffffff;
     box-shadow: 0 6px 14px rgba(47, 111, 237, 0.25);
 }
 
-.site-footer p {
+.pie-sitio p {
     font-size: 0.85rem;
     color: var(--mist);
 }
@@ -591,35 +503,35 @@ a:focus-visible {
         padding: 0 var(--space-sm) var(--space-lg);
     }
 
-    .panel-promo {
+    .panel-ofertas {
         grid-template-columns: 160px 1fr;
     }
 
-    .site-footer {
+    .pie-sitio {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .site-footer address {
+    .pie-sitio address {
         grid-column: 1;
         grid-row: 2;
     }
 
-    .site-footer h3 {
+    .pie-sitio h3 {
         grid-column: 2;
         grid-row: 2;
     }
 
-    .site-footer .social-links {
+    .pie-sitio .redes-sociales {
         grid-column: 2;
         grid-row: 3;
     }
 
-    .site-footer p:nth-of-type(1) {
+    .pie-sitio p:nth-of-type(1) {
         grid-column: 1 / -1;
         grid-row: 4;
     }
 
-    .site-footer p:nth-of-type(2) {
+    .pie-sitio p:nth-of-type(2) {
         grid-column: 1 / -1;
         grid-row: 5;
     }
@@ -636,53 +548,44 @@ a:focus-visible {
         clip-path: none;
     }
 
-    #header-desc {
+    #descripcion-encabezado {
         min-height: 6.5rem;
     }
 
-    .product-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: var(--space-sm);
-    }
-
-    .nav-list {
+    .lista-nav {
         gap: 0.4rem;
     }
 
-    .panel-promo {
+    .panel-ofertas {
         grid-template-columns: 1fr;
     }
 
-    .panel-promo img {
+    .panel-ofertas img {
         grid-column: 1;
         grid-row: auto;
         margin: 0 auto;
     }
 
-    .panel-promo p:nth-of-type(1),
-    .panel-promo p:nth-of-type(2) {
+    .panel-ofertas p:nth-of-type(1),
+    .panel-ofertas p:nth-of-type(2) {
         grid-column: 1;
         grid-row: auto;
     }
 
-    .panel-faq {
-        grid-template-columns: 1fr;
-    }
-
-    .site-footer {
+    .pie-sitio {
         grid-template-columns: 1fr;
         text-align: center;
     }
 
-    .site-footer address,
-    .site-footer h3,
-    .site-footer .social-links,
-    .site-footer p {
+    .pie-sitio address,
+    .pie-sitio h3,
+    .pie-sitio .redes-sociales,
+    .pie-sitio p {
         grid-column: 1;
         grid-row: auto;
     }
 
-    .social-links {
+    .redes-sociales {
         justify-content: center;
     }
 }
@@ -709,7 +612,7 @@ a:focus-visible {
    ------------------------------------------------------------ */
 
 /* Contenedor del botón "Agregar/Reservar" dentro de la tarjeta. */
-.card-actions {
+.acciones-tarjeta {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -796,7 +699,7 @@ a:focus-visible {
 /* ------------------------------------------------------------
    16. BUSCADOR DE PRODUCTOS
    ------------------------------------------------------------ */
-.search-form {
+.form-busqueda {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -805,7 +708,7 @@ a:focus-visible {
     margin: var(--space-sm) auto 0;
 }
 
-.search-form .form-control {
+.form-busqueda .form-control {
     flex: 1 1 240px;
 }
 
@@ -819,11 +722,11 @@ a:focus-visible {
 /* ------------------------------------------------------------
    17. PRECIOS Y OFERTAS (Semana 7)
    ------------------------------------------------------------ */
-.product-card {
+.tarjeta-producto {
     position: relative;
 }
 
-.product-card.en-carrito {
+.tarjeta-producto.en-carrito {
     border-color: #1f7a3d;
     box-shadow: 0 0 0 3px rgba(31, 122, 61, 0.15);
 }
@@ -842,7 +745,7 @@ a:focus-visible {
     letter-spacing: 0.04em;
 }
 
-.product-card .plataforma {
+.tarjeta-producto .plataforma {
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
 }
@@ -875,7 +778,7 @@ a:focus-visible {
     text-align: center;
 }
 
-.panel-promo .btn {
+.panel-ofertas .btn {
     font-family: var(--font-display);
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -1004,8 +907,195 @@ section[id] {
 
 /* Celular: el texto de la promoción pasa debajo de la imagen */
 @media (max-width: 640px) {
-    .promo-text {
+    .texto-ofertas {
         grid-column: 1;
         grid-row: auto;
     }
+}
+/* ------------------------------------------------------------
+   19. ESTADOS INFORMATIVOS Y CONFIRMACIONES (Semana 8)
+   ------------------------------------------------------------ */
+
+/* Carga y error del catálogo */
+.estado-carga {
+    text-align: center;
+    padding: var(--space-lg) var(--space-md);
+}
+
+.estado-carga .spinner-border {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.estado-error {
+    color: var(--rage);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+
+/* Aviso flotante de las operaciones del carrito */
+.aviso-contenedor {
+    position: fixed;
+    left: var(--space-md);
+    bottom: var(--space-md);
+    z-index: 1060; /* sobre el panel del carrito (offcanvas = 1045) */
+    max-width: min(360px, calc(100vw - 2 * var(--space-md)));
+}
+
+.aviso {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius);
+    color: #ffffff;
+    font-size: 0.9rem;
+    box-shadow: 0 10px 22px -6px rgba(34, 28, 53, 0.35);
+    animation: aviso-entrada 0.25s ease-out;
+}
+
+.aviso-exito {
+    background-color: #1f7a3d;
+}
+
+.aviso-error {
+    background-color: var(--rage);
+}
+
+@keyframes aviso-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Confirmación de acciones destructivas (eliminar / vaciar) */
+.item-carrito {
+    flex-wrap: wrap;
+}
+
+.confirmar-accion {
+    flex-basis: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0.4rem 0.5rem;
+    border-radius: var(--radius);
+    background-color: rgba(230, 57, 70, 0.08);
+}
+
+.confirmar-pregunta {
+    margin-right: auto;
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.btn-cantidad:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Foco visible en los botones propios (navegación con teclado) */
+.btn-cantidad:focus-visible,
+.btn-quitar-carrito:focus-visible,
+.btn-carrito-flotante:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+    /* En celular el aviso va arriba para no tapar el total del carrito */
+    .aviso-contenedor {
+        left: var(--space-sm);
+        right: var(--space-sm);
+        top: var(--space-sm);
+        bottom: auto;
+        max-width: none;
+    }
+}
+
+/* ------------------------------------------------------------
+   20. MODAL DE DETALLE DEL PRODUCTO (Semana 8)
+   Se usan las clases "modal" de Bootstrap solo por el estilo.
+   ------------------------------------------------------------ */
+
+/* Bloquea el scroll de la página mientras hay una ventana abierta */
+body.sin-scroll {
+    overflow: hidden;
+}
+
+.btn-ver-detalle {
+    color: var(--volt);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.btn-ver-detalle:hover {
+    color: var(--rage);
+    text-decoration: underline;
+}
+
+.detalle-producto .modal-content {
+    border: none;
+    border-top: 4px solid var(--rage);
+    border-radius: var(--radius);
+}
+
+.detalle-producto .modal-title {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.detalle-imagen {
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-soft);
+    background-color: var(--surface-alt);
+}
+
+.detalle-etiquetas {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-oferta-detalle {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background-color: var(--rage);
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.detalle-descripcion {
+    color: var(--ink);
+}
+
+.detalle-plataforma {
+    font-size: 0.9rem;
+}
+
+.detalle-ahorro {
+    margin: 0.4rem 0 0;
+    color: #1f7a3d;
+    font-size: 0.9rem;
+}
+
+.btn-close:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
 }

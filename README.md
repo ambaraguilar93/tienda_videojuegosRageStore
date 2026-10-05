@@ -3,14 +3,165 @@
 Proyecto de **Desarrollo Frontend I (PFY2201)** — Duoc UC
 Autora: **Ambar Aguilar**
 
-- 🌐 Sitio publicado: <https://ambaraguilar93.github.io/tienda_videojuegosRageStore/>
-- 📁 Repositorio: <https://github.com/ambaraguilar93/tienda_videojuegosRageStore>
+- Sitio publicado: <https://ambaraguilar93.github.io/tienda_videojuegosRageStore/>
+- Repositorio: <https://github.com/ambaraguilar93/tienda_videojuegosRageStore>
 
 ---
 
-# Semana 7 — Construyendo componentes funcionales en React para un eCommerce interactivo
+# Semana 8 — Mejorando funcionalidades clave en el eCommerce con React
 
 ## Descripción
+
+Se mejoró la tienda React aplicando `useState`, `useEffect` y renderizado condicional
+de forma más completa. El catálogo ya no viene escrito dentro del código, ahora se
+**carga dinámicamente desde un archivo JSON** con `fetch`, mostrando estados de carga y
+de error. Además se agregaron mejoras en base a la **retroalimentación de la Semana 7**.
+
+Funcionalidades nuevas:
+
+- **Carga dinámica del catálogo** desde `public/data/productos.json` con `useEffect` +
+  `fetch` (con una pequeña demora simulada, como si fuera un servidor real).
+- **Estado de carga** (spinner "Cargando videojuegos…") y **estado de error** con botón
+  **Reintentar**.
+- **Avisos** que informan el resultado de cada operación del carrito ("Minecraft agregado
+  al carrito", "Se vació el carrito"…) y se ocultan solos a los 3 segundos.
+- **Buscador con "Buscando…"**: filtra cuando la persona deja de escribir y se desactiva
+  mientras el catálogo carga.
+- **Confirmación** antes de eliminar un producto o vaciar el carrito.
+- **Modal "Ver detalle"** en cada producto: imagen grande, descripción, plataformas,
+  precios, ahorro y botón para agregar al carrito desde el mismo modal.
+- **Gestión del foco** en el panel del carrito y en el modal (accesibilidad con teclado).
+
+## Retroalimentación de la Semana 7 y cómo se abordó
+
+| Oportunidad de mejora | Qué se hizo |
+| --- | --- |
+| Gestionar el foco del panel del carrito | Al abrir, el foco pasa al botón "Cerrar", Tab y Shift+Tab quedan dentro del panel, al cerrar el foco vuelve al botón flotante. Si se elimina el producto enfocado, el foco vuelve a "Cerrar". La lógica está en el hook `useFocoAtrapado.js` y se reutiliza en el modal de detalle |
+| Estados informativos de carga, procesamiento y error | Spinner y mensaje de error con "Reintentar" para el catálogo (`EstadoCarga.jsx`); "Buscando…" en el buscador, avisos de cada operación del carrito y aviso de error si no se puede guardar (`Aviso.jsx`) |
+| Confirmar acciones destructivas | Componente reutilizable `ConfirmarAccion.jsx` ("¿Quitar…? Sí / Cancelar") para eliminar y vaciar. El botón − se desactiva con 1 unidad, así un producto solo sale del carrito con confirmación |
+| Unificar convenciones de nombres | Componentes en español (`Encabezado`, `BannerOfertas`, `ListaProductos`, `TarjetaProducto`, `ItemCarrito`, `TotalCarrito`, `PiePagina`), clases CSS propias en español, propiedades del JSON en camelCase (ej, `precioOferta`), ids `catalogo-N` y `lanzamiento-N`, se eliminaron estilos que ya no se usaban |
+
+## Estructura del proyecto
+
+```
+tienda_videojuegosRageStore/
+├── index.html               Página base donde React monta la aplicación (#root)
+├── vite.config.js           Configuración de Vite (ruta base para GitHub Pages)
+├── package.json             Dependencias y scripts (dev, build, deploy)
+├── public/
+│   ├── favicon.png
+│   ├── data/
+│   │   └── productos.json   Catálogo y próximos lanzamientos (fuente del fetch)
+│   └── img/                 Portadas de los videojuegos
+└── src/
+    ├── main.jsx             Punto de entrada: importa Bootstrap, estilos y App
+    ├── App.jsx              Componente principal: estado, efectos y manejadores
+    ├── styles.css           Estilos propios (paleta Rage Store)
+    ├── assets/img/          Logo y banner de ofertas
+    ├── hooks/
+    │   └── useFocoAtrapado.js  Hook propio: foco inicial, trampa de foco, Escape y retorno del foco
+    ├── utils/
+    │   ├── productos.js     cargarProductos() (fetch del JSON), filtrarPorNombre()
+    │   ├── carrito.js       agregarItem(), restarItem(), eliminarItem(), totales y localStorage
+    │   └── precios.js       formatearPrecio(), calcularDescuento()
+    └── components/
+        ├── Encabezado.jsx       Logo y menú de navegación (se abre en celular con useState)
+        ├── BannerOfertas.jsx    Banner de ofertas de temporada
+        ├── Buscador.jsx         Input controlado con mensajes "Buscando…" / resultados
+        ├── EstadoCarga.jsx      Spinner de carga o mensaje de error con "Reintentar"
+        ├── ListaProductos.jsx   Sección con la grilla de productos (se reutiliza 2 veces)
+        ├── TarjetaProducto.jsx  Tarjeta de un producto
+        ├── BotonCarrito.jsx     Botón flotante con el contador del carrito
+        ├── Carrito.jsx          Panel lateral del carrito (con gestión del foco)
+        ├── ItemCarrito.jsx      Fila de un producto dentro del carrito
+        ├── TotalCarrito.jsx     Cantidad de productos, ahorro y total
+        ├── DetalleProducto.jsx  Modal con el detalle de un producto
+        ├── ConfirmarAccion.jsx  Botón con confirmación para acciones destructivas
+        ├── Aviso.jsx            Mensaje flotante con el resultado de cada operación
+        ├── Contacto.jsx         Canales de atención y sucursales
+        └── PiePagina.jsx        Pie de página
+```
+
+## Componentes, props y estado
+
+```
+App  (estado: catalogo, lanzamientos, cargando, error, intentoCarga,
+              carrito, carritoAbierto, productoDetalle, aviso, busqueda, busquedaAplicada)
+├── Encabezado            (estado propio: menuAbierto)
+├── BannerOfertas
+├── Buscador        ← props: valor, onCambiar, totalResultados, buscando, deshabilitado
+├── EstadoCarga     ← props: cargando, error, onReintentar        (mientras carga o si falla)
+├── ListaProductos  ← props: productos, carrito, onAgregar, onVerDetalle   (catálogo)
+│   └── TarjetaProducto ← props: producto, cantidad, onAgregar, onVerDetalle
+├── ListaProductos  ← (próximos lanzamientos)
+├── Contacto
+├── PiePagina
+├── BotonCarrito    ← props: cantidad, onAbrir
+├── Carrito         ← props: items, onCerrar, onSumar, onRestar, onEliminar, onVaciar
+│   ├── ItemCarrito  ← props: item, onSumar, onRestar, onEliminar
+│   │   └── ConfirmarAccion (estado propio: confirmando)
+│   ├── TotalCarrito ← props: items
+│   └── ConfirmarAccion  (vaciar carrito)
+├── DetalleProducto ← props: producto, cantidad, onAgregar, onCerrar   (solo si hay producto seleccionado)
+└── Aviso           ← props: aviso, onCerrar
+```
+
+## Elementos de React aplicados
+
+| Requerimiento | Dónde se aplica |
+| --- | --- |
+| `useState` — catálogo | `App.jsx`: `catalogo` y `lanzamientos` (empiezan vacíos y se llenan con el fetch), `cargando`, `error`, `intentoCarga` |
+| `useState` — carrito | `App.jsx`: `carrito` (se inicializa desde localStorage), `carritoAbierto` y `productoDetalle` (producto del modal) |
+| `useState` — elementos interactivos | Botón "Agregar al carrito" ↔ "✓ En el carrito (n)"; `ConfirmarAccion.jsx`: `confirmando` (botón ↔ "¿Seguro? Sí / Cancelar"); `aviso`; `busqueda`; `menuAbierto` en `Encabezado.jsx` |
+| `useEffect` — carga de datos | `App.jsx`: llama a `cargarProductos()` al montar y al reintentar; actualiza `catalogo`, `lanzamientos`, `cargando` y `error`. La limpieza evita actualizar el estado con una respuesta vieja |
+| `useEffect` — otros efectos | Ocultar el aviso a los 3 s (`setTimeout` + `clearTimeout`); esperar a que la persona deje de escribir para filtrar; hook `useFocoAtrapado` (usado por `Carrito.jsx` y `DetalleProducto.jsx`): foco inicial y de retorno, teclas Escape/Tab y bloqueo del scroll; en `ConfirmarAccion.jsx`: mover el foco entre la pregunta y el botón |
+| Renderizado condicional | Cargando / error / catálogo · modal de detalle abierto/cerrado, con etiqueta de reserva, descuento y ahorro según el producto · "Tu carrito está vacío" · "Agregar al carrito" ↔ "✓ En el carrito" (texto y color) · botón ↔ confirmación · aviso visible u oculto, verde o rojo · "Buscando…" / resultados / sin resultados · etiquetas de oferta y reserva · ahorro solo si es mayor a $0 · botón "Vaciar" solo con productos · − desactivado con 1 unidad |
+| Eventos | `onClick` (agregar, sumar, restar, eliminar, vaciar, confirmar, cancelar, reintentar, abrir/cerrar), `onChange` (buscador), `keydown` (Escape y Tab en el carrito) |
+| Estado inmutable | `utils/carrito.js` siempre devuelve un arreglo nuevo (`map`, `filter`, spread `...`) |
+| Sin duplicación de código | `ListaProductos`/`TarjetaProducto` para las dos secciones; `ConfirmarAccion` para eliminar y vaciar; `useFocoAtrapado` para el carrito y el modal; `textoBotonAgregar()` para que la tarjeta y el modal muestren el mismo texto; `actualizarCarrito()` en `App.jsx` concentra guardar + avisar para todas las operaciones del carrito |
+
+## Cómo ejecutar el proyecto
+
+Requisitos: [Node.js](https://nodejs.org/) (versión LTS).
+
+```bash
+git clone https://github.com/ambaraguilar93/tienda_videojuegosRageStore.git
+cd tienda_videojuegosRageStore
+npm install
+npm run dev
+```
+
+> El catálogo se carga con `fetch`, por lo que el sitio debe abrirse con `npm run dev`
+> (o publicado en GitHub Pages), no abriendo el `index.html` directamente.
+
+## Publicación en GitHub Pages
+
+El proyecto se publica en la rama `gh-pages` con el paquete `gh-pages`:
+
+```bash
+npm run deploy     # ejecuta "npm run build" y sube la carpeta dist/ a la rama gh-pages
+```
+
+En `vite.config.js` se configuró `base: '/tienda_videojuegosRageStore/'` para que las
+rutas funcionen dentro de GitHub Pages. El fetch usa `import.meta.env.BASE_URL` para
+encontrar `data/productos.json` tanto en local como publicado.
+
+## Créditos de imágenes
+
+Las portadas e íconos utilizados pertenecen a sus respectivos propietarios y se
+emplean únicamente con fines académicos. Las imágenes de los próximos lanzamientos
+son referenciales.
+
+---
+
+# Historial de semanas anteriores
+
+La versión de la Semana 7 está disponible en la etiqueta `semana-7`. Las Semanas 1 a 6
+corresponden a la versión en HTML, CSS y JavaScript, disponible en la etiqueta `semana-6`.
+
+## Semana 7 — Construyendo componentes funcionales en React para un eCommerce interactivo
+
+### Descripción
 
 El sitio de Rage Store (HTML, CSS, Bootstrap y JavaScript) se migró a **React** usando
 **Vite**. La tienda ahora se construye con **componentes funcionales** que reciben
@@ -32,13 +183,13 @@ Funcionalidades implementadas:
 > la etiqueta [`semana-6`](https://github.com/ambaraguilar93/tienda_videojuegosRageStore/tree/semana-6)
 > del repositorio.
 
-## Tecnologías
+### Tecnologías
 
 - React 19 + Vite
 - Bootstrap 5 (solo el CSS, instalado con npm)
 - gh-pages (publicación en GitHub Pages)
 
-## Estructura del proyecto
+### Estructura del proyecto
 
 ```
 tienda_videojuegosRageStore/
@@ -71,7 +222,7 @@ tienda_videojuegosRageStore/
         └── Footer.jsx       Pie de página
 ```
 
-## Componentes, props y estado
+### Componentes, props y estado
 
 El estado del carrito vive en `App.jsx` (componente padre) y se entrega a los
 componentes hijos mediante **props**. Así el contador, las tarjetas y el panel del
@@ -93,7 +244,7 @@ App  (estado: carrito, carritoAbierto, busqueda)
     └── CartTotal ← props: items
 ```
 
-## Elementos de React aplicados
+### Elementos de React aplicados
 
 | Requerimiento | Dónde se aplica |
 | --- | --- |
@@ -108,40 +259,7 @@ App  (estado: carrito, carritoAbierto, busqueda)
 | Estado inmutable | `utils/carrito.js` siempre devuelve un arreglo nuevo (`map`, `filter`, spread `...`), nunca usa `push` ni `splice` |
 | Funciones reutilizables | `utils/precios.js` y `utils/carrito.js`, usadas por varios componentes |
 
-## Cómo ejecutar el proyecto
-
-Requisitos: [Node.js](https://nodejs.org/) (versión LTS).
-
-```bash
-git clone https://github.com/ambaraguilar93/tienda_videojuegosRageStore.git
-cd tienda_videojuegosRageStore
-npm install        # instala las dependencias
-npm run dev        # abre el sitio en http://localhost:5173/tienda_videojuegosRageStore/
-```
-
-## Publicación en GitHub Pages
-
-El proyecto se publica en la rama `gh-pages` con el paquete `gh-pages`:
-
-```bash
-npm run deploy     # ejecuta "npm run build" y sube la carpeta dist/ a la rama gh-pages
-```
-
-En `vite.config.js` se configuró `base: '/tienda_videojuegosRageStore/'` para que las
-rutas de los archivos funcionen dentro de GitHub Pages.
-
-## Créditos de imágenes
-
-Las portadas e íconos utilizados pertenecen a sus respectivos propietarios y se
-emplean únicamente con fines académicos. Las imágenes de los próximos lanzamientos
-son referenciales.
-
 ---
-
-# Historial de semanas anteriores
-
-Estas semanas corresponden a la versión en HTML, CSS y JavaScript, disponible en la
-etiqueta `semana-6` del repositorio.
 
 ## Semana 1 — Crear una estructura básica en HTML
 

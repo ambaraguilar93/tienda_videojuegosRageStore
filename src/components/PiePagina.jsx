@@ -6,11 +6,11 @@ const redes = [
   { nombre: 'Discord', url: 'https://discord.com/' },
 ]
 
-function Footer() {
+function PiePagina() {
   const anioActual = new Date().getFullYear()
 
   return (
-    <footer className="site-footer">
+    <footer className="pie-sitio">
       <h2>Información de contacto</h2>
 
       <address>
@@ -21,7 +21,7 @@ function Footer() {
       </address>
 
       <h3>Síguenos en redes sociales</h3>
-      <ul className="social-links">
+      <ul className="redes-sociales">
         {redes.map(red => (
           <li key={red.nombre}>
             <a href={red.url} target="_blank" rel="noopener noreferrer">{red.nombre}</a>
@@ -35,4 +35,4 @@ function Footer() {
   )
 }
 
-export default Footer
+export default PiePagina

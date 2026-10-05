@@ -2,7 +2,7 @@ import { formatearPrecio } from '../utils/precios.js'
 import { contarUnidades, calcularTotal, calcularAhorro } from '../utils/carrito.js'
 
 // Resumen del carrito que incluye cantidad de productos, ahorro y total a pagar.
-function CartTotal({ items }) {
+function TotalCarrito({ items }) {
   const unidades = contarUnidades(items)
   const total = calcularTotal(items)
   const ahorro = calcularAhorro(items)
@@ -23,4 +23,4 @@ function CartTotal({ items }) {
   )
 }
 
-export default CartTotal
+export default TotalCarrito

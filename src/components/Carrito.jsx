@@ -1,21 +1,26 @@
-import { useEffect } from 'react'
-import CartItem from './CartItem.jsx'
-import CartTotal from './CartTotal.jsx'
+import { useEffect, useRef } from 'react'
+import ItemCarrito from './ItemCarrito.jsx'
+import TotalCarrito from './TotalCarrito.jsx'
+import ConfirmarAccion from './ConfirmarAccion.jsx'
+import { useFocoAtrapado } from '../hooks/useFocoAtrapado.js'
 
-// Panel lateral del carrito. 
+// Panel lateral del carrito.
 // Se muestra u oculta desde App con estado.
 function Carrito({ items, onCerrar, onSumar, onRestar, onEliminar, onVaciar }) {
   const estaVacio = items.length === 0
 
-  // Mientras el panel está abierto, la tecla Esc lo cierra.
-  // La función de limpieza quita el listener cuando el panel se cierra.
+  const panelRef = useRef(null)
+  const botonCerrarRef = useRef(null)
+
+  useFocoAtrapado(panelRef, botonCerrarRef, onCerrar)
+
+  // Si se elimina el producto que tenía el foco, ese botón desaparece. 
+  // En ese caso el foco vuelve a "Cerrar".
   useEffect(() => {
-    const cerrarConEscape = evento => {
-      if (evento.key === 'Escape') onCerrar()
+    if (panelRef.current && !panelRef.current.contains(document.activeElement)) {
+      botonCerrarRef.current?.focus()
     }
-    document.addEventListener('keydown', cerrarConEscape)
-    return () => document.removeEventListener('keydown', cerrarConEscape)
-  }, [onCerrar])
+  }, [items])
 
   return (
     <>
@@ -23,6 +28,7 @@ function Carrito({ items, onCerrar, onSumar, onRestar, onEliminar, onVaciar }) {
       <div className="offcanvas-backdrop fade show" onClick={onCerrar}></div>
 
       <aside
+        ref={panelRef}
         className="offcanvas offcanvas-end show carrito-panel"
         role="dialog"
         aria-modal="true"
@@ -30,7 +36,13 @@ function Carrito({ items, onCerrar, onSumar, onRestar, onEliminar, onVaciar }) {
       >
         <div className="offcanvas-header">
           <h2 className="offcanvas-title h5" id="titulo-carrito">Tu carrito</h2>
-          <button type="button" className="btn-close" aria-label="Cerrar carrito" onClick={onCerrar}></button>
+          <button
+            ref={botonCerrarRef}
+            type="button"
+            className="btn-close"
+            aria-label="Cerrar carrito"
+            onClick={onCerrar}
+          ></button>
         </div>
 
         <div className="offcanvas-body d-flex flex-column">
@@ -42,7 +54,7 @@ function Carrito({ items, onCerrar, onSumar, onRestar, onEliminar, onVaciar }) {
           ) : (
             <ul className="lista-carrito">
               {items.map(item => (
-                <CartItem
+                <ItemCarrito
                   key={item.id}
                   item={item}
                   onSumar={onSumar}
@@ -53,12 +65,20 @@ function Carrito({ items, onCerrar, onSumar, onRestar, onEliminar, onVaciar }) {
             </ul>
           )}
 
-          <CartTotal items={items} />
+          <TotalCarrito items={items} />
 
+          {/* Vaciar solo aparece con productos y pide confirmación */}
           {!estaVacio && (
-            <button type="button" className="btn btn-outline-danger btn-sm mt-2" onClick={onVaciar}>
-              Vaciar carrito
-            </button>
+            <div className="mt-2">
+              <ConfirmarAccion
+                pregunta="¿Vaciar todo el carrito?"
+                textoConfirmar="Sí, vaciar"
+                onConfirmar={onVaciar}
+                claseBoton="btn btn-outline-danger btn-sm w-100"
+              >
+                Vaciar carrito
+              </ConfirmarAccion>
+            </div>
           )}
         </div>
       </aside>

@@ -4,7 +4,8 @@
    sin modificar el original.
    ------------------------------------------------------------ */
 
-const CARRITO_KEY = 'ragestore-carrito-react'
+// Se cambió la clave en la Semana 8 porque ahora se guarda el item completo.
+const CARRITO_KEY = 'ragestore-carrito'
 
 // Agrega un producto. Si ya está, suma 1 a la cantidad.
 export function agregarItem(carrito, producto) {
@@ -18,7 +19,7 @@ export function agregarItem(carrito, producto) {
   return [...carrito, { ...producto, cantidad: 1 }]
 }
 
-// Resta un producto. Si llega a 0, el producto sale del carrito.
+// Resta un producto.
 export function restarItem(carrito, id) {
   return carrito
     .map(item => (item.id === id ? { ...item, cantidad: item.cantidad - 1 } : item))
@@ -48,38 +49,59 @@ export function calcularAhorro(carrito) {
   )
 }
 
-// Cantidad de un producto en el carrito (0 si no hay).
+// Cantidad de un producto en el carrito.
 export function cantidadEnCarrito(carrito, id) {
   return carrito.find(item => item.id === id)?.cantidad ?? 0
 }
 
-/* Persistencia en localStorage */
+// Texto del botón "Agregar" según si es reserva y si ya está en el carrito.
+export function textoBotonAgregar(producto, cantidad) {
+  if (cantidad > 0) {
+    return producto.reserva ? `✓ Reservado (${cantidad})` : `✓ En el carrito (${cantidad})`
+  }
+  return producto.reserva ? 'Reservar' : 'Agregar al carrito'
+}
 
-// El carrito solo guarda { id, cantidad }. El resto
-// de los datos se toma de la lista de productos.
-export function leerCarritoGuardado(productos) {
+/* ------------------------------------------------------------
+   Persistencia en localStorage
+   El carrito se guarda completo (con nombre, precio e imagen) para
+   poder mostrarlo apenas abre la página, sin esperar a que termine
+   la carga del catálogo.
+   ------------------------------------------------------------ */
+
+// Revisa que un item guardado tenga los datos mínimos para mostrarse.
+function esItemValido(item) {
+  return (
+    item &&
+    typeof item.id === 'string' &&
+    typeof item.nombre === 'string' &&
+    typeof item.precioOferta === 'number' &&
+    Number.isInteger(item.cantidad) &&
+    item.cantidad > 0
+  )
+}
+
+// Lee el carrito guardado. Si no hay nada o los datos están dañados,
+// devuelve un carrito vacío.
+export function leerCarritoGuardado() {
   try {
     const guardado = localStorage.getItem(CARRITO_KEY)
     const datos = guardado ? JSON.parse(guardado) : []
-    if (!Array.isArray(datos)) return []
-
-    return datos
-      .map(({ id, cantidad }) => {
-        const producto = productos.find(p => p.id === id)
-        return producto && cantidad > 0 ? { ...producto, cantidad } : null
-      })
-      .filter(Boolean)
+    return Array.isArray(datos) ? datos.filter(esItemValido) : []
   } catch (error) {
     console.error('No se pudo leer el carrito guardado:', error)
     return []
   }
 }
 
+// Guarda el carrito. Devuelve true si se pudo guardar y false si
+// el navegador lo impidió (por ejemplo, almacenamiento lleno o bloqueado).
 export function guardarCarrito(carrito) {
   try {
-    const resumen = carrito.map(({ id, cantidad }) => ({ id, cantidad }))
-    localStorage.setItem(CARRITO_KEY, JSON.stringify(resumen))
+    localStorage.setItem(CARRITO_KEY, JSON.stringify(carrito))
+    return true
   } catch (error) {
     console.error('No se pudo guardar el carrito:', error)
+    return false
   }
 }
