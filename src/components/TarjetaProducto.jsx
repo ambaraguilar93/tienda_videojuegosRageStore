@@ -1,10 +1,10 @@
 import { formatearPrecio, calcularDescuento } from '../utils/precios.js'
 import { textoBotonAgregar } from '../utils/carrito.js'
+import ConfirmarAccion from './ConfirmarAccion.jsx'
 
 // Tarjeta de un producto. Recibe todo por props, sirve para cualquier producto.
-// "Ver detalle" avisa a App qué producto mostrar en el modal.
-function TarjetaProducto({ producto, cantidad, onAgregar, onVerDetalle }) {
-  const { nombre, descripcion, precio, precioOferta, plataforma, imagen, alt, reserva } = producto
+function TarjetaProducto({ producto, cantidad, onAgregar, onVerDetalle, onEliminar }) {
+  const { nombre, descripcion, precio, precioOferta, plataforma, categoria, imagen, alt, reserva } = producto
   const descuento = calcularDescuento(precio, precioOferta)
   const enCarrito = cantidad > 0
 
@@ -19,6 +19,8 @@ function TarjetaProducto({ producto, cantidad, onAgregar, onVerDetalle }) {
 
         <div className="card-body d-flex flex-column">
           {reserva && <span className="badge-reserva">Reserva</span>}
+
+          <span className="badge-categoria">{categoria}</span>
 
           <h3 className="card-title h5">{nombre}</h3>
           <p className="card-text">{descripcion}</p>
@@ -51,6 +53,15 @@ function TarjetaProducto({ producto, cantidad, onAgregar, onVerDetalle }) {
             >
               Ver detalle
             </button>
+            <ConfirmarAccion
+              pregunta={`¿Eliminar ${nombre} del catálogo?`}
+              textoConfirmar="Sí, eliminar"
+              onConfirmar={() => onEliminar(producto)}
+              claseBoton="btn btn-outline-danger btn-sm"
+              etiqueta={`Eliminar ${nombre} del catálogo`}
+            >
+              Eliminar
+            </ConfirmarAccion>
           </div>
         </div>
       </div>

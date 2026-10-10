@@ -6,6 +6,7 @@ const enlaces = [
   { href: '#inicio', texto: 'Inicio' },
   { href: '#catalogo', texto: 'Catálogo' },
   { href: '#lanzamientos', texto: 'Lanzamientos' },
+  { href: '#agregar', texto: 'Agregar juego' },
   { href: '#contacto', texto: 'Contacto' },
 ]
 

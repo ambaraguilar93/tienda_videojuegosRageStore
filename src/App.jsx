@@ -2,15 +2,24 @@ import { useCallback, useEffect, useState } from 'react'
 import Encabezado from './components/Encabezado.jsx'
 import BannerOfertas from './components/BannerOfertas.jsx'
 import Buscador from './components/Buscador.jsx'
+import FiltroCategorias from './components/FiltroCategorias.jsx'
 import EstadoCarga from './components/EstadoCarga.jsx'
 import ListaProductos from './components/ListaProductos.jsx'
+import FormularioAgregarProducto from './components/FormularioAgregarProducto.jsx'
 import Contacto from './components/Contacto.jsx'
 import PiePagina from './components/PiePagina.jsx'
 import BotonCarrito from './components/BotonCarrito.jsx'
 import Carrito from './components/Carrito.jsx'
 import Aviso from './components/Aviso.jsx'
 import DetalleProducto from './components/DetalleProducto.jsx'
-import { cargarProductos, filtrarPorNombre } from './utils/productos.js'
+import { esCancelacion } from './utils/espera.js'
+import {
+  CATEGORIA_TODAS,
+  cargarProductos,
+  filtrarPorNombre,
+  filtrarPorCategoria,
+  obtenerCategorias,
+} from './utils/productos.js'
 import {
   agregarItem,
   restarItem,
@@ -52,28 +61,28 @@ function App() {
   // Texto que realmente se usa para filtrar.
   const [busquedaAplicada, setBusquedaAplicada] = useState('')
 
+  // Categoría elegida en el filtro ("Todas" muestra todo).
+  const [categoriaActiva, setCategoriaActiva] = useState(CATEGORIA_TODAS)
+
   // 1. Carga del catálogo desde productos.json.
   useEffect(() => {
-    let cancelado = false
+    const controlador = new AbortController()
 
-    cargarProductos()
+    cargarProductos(controlador.signal)
       .then(datos => {
-        if (cancelado) return
         setCatalogo(datos.catalogo)
         setLanzamientos(datos.lanzamientos)
+        setCargando(false)
       })
       .catch(err => {
-        if (cancelado) return
+        // Una cancelación no es un error de carga, no se muestra nada.
+        if (esCancelacion(err)) return
         console.error('Error al cargar los productos:', err)
         setError(err.message)
-      })
-      .finally(() => {
-        if (!cancelado) setCargando(false)
+        setCargando(false)
       })
 
-    return () => {
-      cancelado = true
-    }
+    return () => controlador.abort()
   }, [intentoCarga])
 
   // 2. El aviso se oculta solo después de unos segundos.
@@ -90,7 +99,7 @@ function App() {
   }, [busqueda])
 
   // Actualiza el estado del carrito, lo guarda en localStorage 
-  // y muestra un aviso con el resultado de la operación.
+  // y muestra un aviso con el resultado.
   const actualizarCarrito = (nuevoCarrito, textoExito) => {
     setCarrito(nuevoCarrito)
     const guardado = guardarCarrito(nuevoCarrito)
@@ -109,6 +118,28 @@ function App() {
     actualizarCarrito(restarItem(carrito, item.id), `Se quitó una unidad de ${item.nombre}`)
   const handleEliminar = item =>
     actualizarCarrito(eliminarItem(carrito, item.id), `${item.nombre} se eliminó del carrito`)
+  // Agrega un videojuego nuevo al final del catálogo.
+  const handleAgregarProducto = producto => {
+    setCatalogo(lista => [...lista, producto])
+    setAviso({ texto: `${producto.nombre} se agregó al catálogo`, tipo: 'exito' })
+  }
+
+  // Quita un videojuego del catálogo. Si estaba en
+  // el carrito también se saca de ahí, para no dejar productos que ya no existen.
+  const handleEliminarProducto = producto => {
+    setCatalogo(lista => lista.filter(p => p.id !== producto.id))
+    setLanzamientos(lista => lista.filter(p => p.id !== producto.id))
+
+    const nuevoCarrito = eliminarItem(carrito, producto.id)
+    setCarrito(nuevoCarrito)
+    guardarCarrito(nuevoCarrito)
+    // Si la categoría activa se quedó sin productos, se vuelve a "Todas".
+    const quedan = [...catalogo, ...lanzamientos].filter(p => p.id !== producto.id)
+    if (categoriaActiva !== CATEGORIA_TODAS && !quedan.some(p => p.categoria === categoriaActiva)) {
+      setCategoriaActiva(CATEGORIA_TODAS)
+    }
+    setAviso({ texto: `${producto.nombre} se eliminó del catálogo`, tipo: 'exito' })
+  }
   const handleVaciar = () => actualizarCarrito([], 'Se vació el carrito')
 
   // Al reintentar se vuelve al estado "cargando" y cambia intentoCarga,
@@ -123,8 +154,13 @@ function App() {
   const handleCerrarDetalle = useCallback(() => setProductoDetalle(null), [])
 
   const totalUnidades = contarUnidades(carrito)
-  const catalogoFiltrado = filtrarPorNombre(catalogo, busquedaAplicada)
-  const lanzamientosFiltrados = filtrarPorNombre(lanzamientos, busquedaAplicada)
+  // Los dos filtros se combinan, primero la categoría y luego el nombre.
+  const categorias = obtenerCategorias(catalogo, lanzamientos)
+  const catalogoFiltrado = filtrarPorNombre(filtrarPorCategoria(catalogo, categoriaActiva), busquedaAplicada)
+  const lanzamientosFiltrados = filtrarPorNombre(
+    filtrarPorCategoria(lanzamientos, categoriaActiva),
+    busquedaAplicada
+  )
   const totalResultados = catalogoFiltrado.length + lanzamientosFiltrados.length
   const buscando = busqueda !== busquedaAplicada
   const catalogoListo = !cargando && !error
@@ -146,6 +182,13 @@ function App() {
           deshabilitado={!catalogoListo}
         />
 
+        <FiltroCategorias
+          categorias={categorias}
+          activa={categoriaActiva}
+          onCambiar={setCategoriaActiva}
+          deshabilitado={!catalogoListo}
+        />
+
         {catalogoListo ? (
           <>
             <ListaProductos
@@ -156,6 +199,7 @@ function App() {
               carrito={carrito}
               onAgregar={handleAgregar}
               onVerDetalle={setProductoDetalle}
+              onEliminar={handleEliminarProducto}
               claseAcento="panel-catalogo"
             />
 
@@ -169,8 +213,13 @@ function App() {
               carrito={carrito}
               onAgregar={handleAgregar}
               onVerDetalle={setProductoDetalle}
+              onEliminar={handleEliminarProducto}
               claseAcento="panel-lanzamientos"
             />
+
+            <hr />
+
+            <FormularioAgregarProducto categorias={categorias} onAgregar={handleAgregarProducto} />
           </>
         ) : (
           <EstadoCarga

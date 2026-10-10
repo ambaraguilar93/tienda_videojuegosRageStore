@@ -11,6 +11,7 @@
    carrito y ajustes del buscador.
    Semana 8 — estados de carga y error, avisos del carrito,
    confirmaciones, foco visible y nombres de clases en español.
+   EFT — Estilos del filtro, la etiqueta de categoría y los formularios.
    Autora: Ambar Aguilar
    ------------------------------------------------------------ */
 
@@ -912,6 +913,7 @@ section[id] {
         grid-row: auto;
     }
 }
+
 /* ------------------------------------------------------------
    19. ESTADOS INFORMATIVOS Y CONFIRMACIONES (Semana 8)
    ------------------------------------------------------------ */
@@ -938,7 +940,8 @@ section[id] {
     position: fixed;
     left: var(--space-md);
     bottom: var(--space-md);
-    z-index: 1060; /* sobre el panel del carrito (offcanvas = 1045) */
+    z-index: 1060;
+    /* sobre el panel del carrito (offcanvas = 1045) */
     max-width: min(360px, calc(100vw - 2 * var(--space-md)));
 }
 
@@ -968,6 +971,7 @@ section[id] {
         opacity: 0;
         transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1012,6 +1016,7 @@ section[id] {
 }
 
 @media (max-width: 640px) {
+
     /* En celular el aviso va arriba para no tapar el total del carrito */
     .aviso-contenedor {
         left: var(--space-sm);
@@ -1098,4 +1103,59 @@ body.sin-scroll {
 .btn-close:focus-visible {
     outline: 2px solid var(--gold);
     outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   Filtro por categoría (EFT)
+   ------------------------------------------------------------ */
+.filtro-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto 1.5rem;
+    max-width: 900px;
+    padding: 0 1rem;
+}
+
+.filtro-titulo {
+    font-weight: 600;
+}
+
+.badge-categoria {
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: #e9ecef;
+    color: #212529;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Formularios (agregar videojuego y contacto)
+   ------------------------------------------------------------ */
+.panel-formulario {
+    text-align: left;
+}
+
+.panel-formulario form {
+    max-width: 900px;
+    margin: 1.5rem 0 0;
+}
+
+.panel-formulario .invalid-feedback {
+    display: block;
+}
+
+.formulario-contacto {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.formulario-contacto .invalid-feedback {
+    display: block;
 }

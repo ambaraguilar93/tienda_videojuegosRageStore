@@ -1,4 +1,6 @@
-// Seccion de contacto y sucursales
+// Seccion de contacto: medios de contacto, sucursales y formulario.
+import FormularioContacto from './FormularioContacto.jsx'
+
 const sucursales = [
   'Santiago Centro — Paseo Ahumada 85 (Salida Metro Estación Universidad de Chile).',
   'Maipú — Avenida Pajaritos 5678, local 3.',
@@ -27,6 +29,8 @@ function Contacto() {
           <li key={sucursal}>{sucursal}</li>
         ))}
       </ol>
+
+      <FormularioContacto />
     </section>
   )
 }

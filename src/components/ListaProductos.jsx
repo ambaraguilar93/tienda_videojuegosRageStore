@@ -3,7 +3,7 @@ import { cantidadEnCarrito } from '../utils/carrito.js'
 
 // Sección con un listado de productos. Se reutiliza para
 // el catálogo y para los próximos lanzamientos.
-function ListaProductos({ id, titulo, descripcion, productos, carrito, onAgregar, onVerDetalle, claseAcento }) {
+function ListaProductos({ id, titulo, descripcion, productos, carrito, onAgregar, onVerDetalle, onEliminar, claseAcento }) {
   return (
     <section id={id} className={`panel ${claseAcento}`}>
       <h2>{titulo}</h2>
@@ -21,6 +21,7 @@ function ListaProductos({ id, titulo, descripcion, productos, carrito, onAgregar
               cantidad={cantidadEnCarrito(carrito, producto.id)}
               onAgregar={onAgregar}
               onVerDetalle={onVerDetalle}
+              onEliminar={onEliminar}
             />
           ))}
         </div>
